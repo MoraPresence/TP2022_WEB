@@ -1,0 +1,93 @@
+.container {
+    padding: 0 15px 0;
+}
+
+.Nickname{
+    margin-left: 20px;
+    color: floralwhite;
+    font-family: "Bradley Hand ITC";
+    font-size: 20px;
+}
+
+.button-authorized{
+    margin: 20px;
+}
+
+.btn{
+    width: 80px;
+}
+
+.header-index {
+    margin-bottom: 150px;
+}
+
+.form-control {
+    width: 500px;
+}
+
+.navbar {
+    height: 150px;
+    background: lightpink;
+}
+
+.flex-shrink-0 {
+    background: #a7c7f6;
+    width: 100%;
+    height: 100%;
+
+}
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+/*.d-flex{*/
+/*    #background: #e0cdb9;*/
+/*}*/
+
+.footer {
+    background: #cab388;
+}
+
+.button-authorized {
+    position: relative;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border: 2px solid floralwhite;
+    border-radius: 50%;
+    overflow: hidden;
+    object-position: 0 0;
+}
+
+.avatar-navbar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid floralwhite;
+    border-radius: 50%;
+    overflow: hidden;
+    object-position: 0 0;
+}
+
+
+img {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.question {
+    border: 2px solid floralwhite;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: "Bradley Hand ITC";
+    font-size: 20px;
+}
+
+.rows {
+    min-width: 936px;
+}
