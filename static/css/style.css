@@ -188,6 +188,19 @@ img {
     font-size: 20px;
 }
 
+.site-info{
+    border: 2px solid lightpink;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: Arial;
+    font-size: 20px;
+}
+
 .rows {
     min-width: 936px;
+}
+
+.page-link{
+    margin-left: 20px;
 }
