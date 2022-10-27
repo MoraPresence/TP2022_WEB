@@ -1,6 +1,8 @@
 .container {
     padding: 0 15px 0;
+
 }
+
 
 .Nickname{
     margin-left: 20px;
@@ -21,17 +23,17 @@
     margin-bottom: 150px;
 }
 
-.form-control {
-    width: 500px;
+#SearchLine{
+  width: 500px;
+}
+
+#TextData{
+    max-lines: inherit;
 }
 
 .navbar {
     height: 150px;
     background: lightpink;
-}
-
-.navbar-toggler{
-    border: black;
 }
 
 .question-text{
@@ -184,9 +186,10 @@ img {
     padding: 20px;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-family: "Bradley Hand ITC";
-    font-size: 20px;
+    font-family: Arial;
+    font-size: 14px;
 }
+
 
 .site-info{
     border: 2px solid lightpink;
@@ -203,4 +206,14 @@ img {
 
 .page-link{
     margin-left: 20px;
+}
+
+.form-control{
+    overflow: hidden;
+}
+
+/*ask*/
+
+.mb-3{
+    margin-right: 20px;
 }
