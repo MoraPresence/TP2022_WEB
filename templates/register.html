@@ -70,18 +70,21 @@
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                             <form>
                                 <div class="form-outline mb-4">
+                                    <h2 class="text-error">Login is in use</h2>
                                     <input type="text" id="formLoginRegister"
                                            class="form-control form-control-lg"/>
                                     <label class="form-label" for="formLoginRegister">Login</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
+                                    <h2 class="text-error">Email is in use</h2>
                                     <input type="email" id="formEmailRegister"
                                            class="form-control form-control-lg"/>
                                     <label class="form-label" for="formEmailRegister">Your Email</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
+                                    <h2 class="text-error">Nickname is in use</h2>
                                     <input type="email" id="formNicknameRegister"
                                            class="form-control form-control-lg"/>
                                     <label class="form-label" for="formNicknameRegister">Your Nickname</label>
@@ -89,11 +92,12 @@
 
                                 <div class="form-outline mb-4">
                                     <input type="password" id="form3Example4cg"
-                                           class="form-control form-control-lg"/>
+                                           class="form-control form-control-lg" minlength="4" maxlength="32" required/>
                                     <label class="form-label" for="form3Example4cg">Password</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
+                                    <h2 class="text-error">Passwords do not match</h2>
                                     <input type="password" id="form3Example4cdg"
                                            class="form-control form-control-lg"/>
                                     <label class="form-label" for="form3Example4cdg">Repeat your

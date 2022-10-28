@@ -263,3 +263,7 @@ img {
     margin-right: 20px;
 }
 
+.text-error{
+    color: red;
+    font-size:15px;
+}
