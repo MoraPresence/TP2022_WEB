@@ -32,7 +32,8 @@
                     <button type="button" class="btn btn-outline-light me-2">Ask</button>
                 </div>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="SearchLine">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                           id="SearchLine">
                 </form>
             </div>
             <div class="collapse navbar-collapse">
@@ -60,10 +61,9 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        <h1>New questions</h1>
         <div class="row">
             <div class="col-8">
-                <div class="questions">
+                <div class="question">
                     <div class="row">
                         <div class="col-lg-2">
                             <div class="avatar">
@@ -71,62 +71,55 @@
                             </div>
                         </div>
                         <div class="col-lg-10">
-                            <h2 class="question-title">Question 1</h2>
+                            <h2 class="question-title">Do you see the red dot too?</h2>
                             <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
+                                Do you see it too? The red one runs all over the house! I can't catch her!!!
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-lg-2">
-                                <button class="glow-on-hover " type="submit">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="like">
-                                                <img src="../static/img/like.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="counterLike">1</div>
+                            <button class="glow-on-hover " type="submit">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="like">
+                                            <img src="../static/img/like.png" alt="">
                                         </div>
                                     </div>
-                                </button>
-                            </div>
-                        <div class="col-lg-3">
-                            <a href="#">answers(1)</a>
+                                    <div class="col-lg-6">
+                                        <div class="counterLike">1</div>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="#">Home</a></div>
-                                <div class="col-lg-3"><a href="#">Cats</a></div>
-                                <div class="col-lg-3"><a href="#">Milk</a></div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-
-                <div class="questions">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="avatar">
-                                <img src="../static/img/cat02.jpg" alt="">
-                            </div>
-                        </div>
                         <div class="col-lg-10">
-                            <h2 class="question-title">Question 2</h2>
-                            <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
+                            <div class="row">
+                                <div class="col-lg-3">Tags:</div>
+                                <div class="col-lg-3"><a href="#">Home</a></div>
+                                <div class="col-lg-3"><a href="#">Cats</a></div>
+                                <div class="col-lg-3"><a href="#">Milk</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-2">
+                </div>
+                <div class="answers-area">
+                    <div class="answer">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="avatar">
+                                    <img src="../static/img/cat01.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <h2 class="question-title">Do you see the red dot too?</h2>
+                                <div class="question-text">
+                                    Do you see it too? The red one runs all over the house! I can't catch her!!!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
                                 <button class="glow-on-hover " type="submit">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -140,37 +133,36 @@
                                     </div>
                                 </button>
                             </div>
-                        <div class="col-lg-3">
-                            <a href="#">answers(2)</a>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="#">Home</a></div>
-                                <div class="col-lg-3"><a href="#">Cats</a></div>
-                                <div class="col-lg-3"><a href="#">Milk</a></div>
+                            <div class="col-lg-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="correctAnswer"
+                                           value="something" checked>
+                                    <label class="form-check-label">Correct!</label>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                            <div class="col-lg-7">
 
-                <div class="questions">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="avatar">
-                                <img src="../static/img/cat03.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-10">
-                            <h2 class="question-title">Question 3</h2>
-                            <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-2">
+
+                    <div class="questions">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="avatar">
+                                    <img src="../static/img/cat01.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <h2 class="question-title">Do you see the red dot too?</h2>
+                                <div class="question-text">
+                                    Do you see it too? The red one runs all over the house! I can't catch her!!!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+
                                 <button class="glow-on-hover " type="submit">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -184,37 +176,32 @@
                                     </div>
                                 </button>
                             </div>
-                        <div class="col-lg-3">
-                            <a href="#">answers(3)</a>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="#">Home</a></div>
-                                <div class="col-lg-3"><a href="#">Cats</a></div>
-                                <div class="col-lg-3"><a href="#">Milk</a></div>
+                            <div class="col-lg-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="correctAnswer"
+                                           value="something" checked>
+                                    <label class="form-check-label">Correct!</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+
+
+                <div class="mb-3">
+                    <label for="TextData" class="form-label">Text</label>
+                    <textarea type="text" class="form-control" id="TextData" rows="4" minlength="10" maxlength="200"
+                              required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <div class="ask-button">
+                        <button type="button" class="btn btn-outline-light me-2">Answer</button>
+                    </div>
+                </div>
             </div>
             <div class="col-4">
                 <div class="site-info">
@@ -241,6 +228,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

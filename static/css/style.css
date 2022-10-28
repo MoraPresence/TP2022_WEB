@@ -91,14 +91,26 @@ body, html {
 }
 
 .like{
-    width: 40px;
-    height: 40px;
-    object-position: right bottom;
+    width: 25px;
+    height: 25px;
+    object-position: center;
 }
 
 .counterLike{
-    object-position: center;
-    font-size: 30px;
+    width: 25px;
+    height: 25px;
+}
+
+
+.col-lg-2{
+    margin-bottom: 20px;
+}
+
+.answers-area{
+    border: 2px solid black;
+    border-left: none;
+    border-right: none;
+    padding-top: 20px;
 }
 
 
@@ -107,7 +119,7 @@ body, html {
     height: content-box;
     border: none;
     outline: none;
-    color: #fff;
+    color: black;
     background: floralwhite;
     cursor: pointer;
     position: relative;
@@ -198,7 +210,23 @@ img {
     object-fit: cover;
 }
 
+.questions {
+    border: 2px solid floralwhite;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: Arial;
+    font-size: 14px;
+}
+
 .question {
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.answer{
     border: 2px solid floralwhite;
     padding: 20px;
     border-radius: 6px;
