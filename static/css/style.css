@@ -4,6 +4,27 @@
 }
 
 
+input:valid {
+  border-color: green;
+}
+
+input:invalid {
+  border-color: red;
+}
+
+textarea:valid {
+  border-color: green;
+}
+
+textarea:invalid {
+  border-color: red;
+}
+
+textarea {
+  resize: none;
+}
+
+
 .Nickname{
     margin-left: 20px;
     color: floralwhite;
@@ -25,10 +46,6 @@
 
 #SearchLine{
   width: 500px;
-}
-
-#TextData{
-    max-lines: inherit;
 }
 
 .navbar {
