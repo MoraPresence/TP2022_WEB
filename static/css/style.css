@@ -90,17 +90,6 @@ body, html {
     object-position: 0 0;
 }
 
-.like{
-    width: 25px;
-    height: 25px;
-    object-position: center;
-}
-
-.counterLike{
-    width: 25px;
-    height: 25px;
-}
-
 
 .col-lg-2{
     margin-bottom: 20px;
@@ -112,7 +101,6 @@ body, html {
     border-right: none;
     padding-top: 20px;
 }
-
 
 .glow-on-hover {
     width: content-box;
