@@ -1,262 +1,148 @@
-<!doctype html>
-<html lang="en" class="h-100">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+{% extends 'inc/base.html' %}
 
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
+{% load static %}
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column h-100">
+{% block content %}
 
-<header class="header-index">
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md fixed-top">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+
+<div class="questions">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{% static 'img/cat01.jpg' %}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <h2 class="question-title">Question 1</h2>
+            <div class="question-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
+                maiores optio pariatur perferendis quae quo sed?
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-2">
+            <button class="glow-on-hover " type="submit">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="like">
+                            <img src="{% static 'img/like.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="counterLike">1</div>
+                    </div>
+                </div>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-md mb-2 mb-md-0"></ul>
-                <a class="navbar-brand" href="../templates/index.html">
-                    <div class="logo">
-                        <img src="../static/img/Logo.jpg" alt="">
-                    </div>
-                </a>
-                <a class="navbar-brand" href="../templates/index.html">Cat OverFlow</a>
-                <div class="ask-button">
-                    <button type="button" class="btn btn-outline-light me-2">Ask</button>
-                </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="SearchLine">
-                </form>
-            </div>
-            <div class="collapse navbar-collapse">
-                <div class="container-user-settings">
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">LogOut</button>
-                    </div>
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">Settings</button>
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="avatar">
-                        <img src="../static/img/cat02.jpg" alt="">
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="Nickname">Mr.Cat</div>
-                </div>
-            </div>
         </div>
-    </nav>
-</header>
-
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        <h1>New questions</h1>
-        <div class="row">
-            <div class="col-8">
-                <div class="questions">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="avatar">
-                                <img src="../static/img/cat01.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-10">
-                            <h2 class="question-title">Question 1</h2>
-                            <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-lg-2">
-                                <button class="glow-on-hover " type="submit">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="like">
-                                                <img src="../static/img/like.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="counterLike">1</div>
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        <div class="col-lg-3">
-                            <a href="../templates/question.html#answers">answers(1)</a>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="questions">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="avatar">
-                                <img src="../static/img/cat02.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-10">
-                            <h2 class="question-title">Question 2</h2>
-                            <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2">
-                                <button class="glow-on-hover " type="submit">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="like">
-                                                <img src="../static/img/like.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="counterLike">1</div>
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        <div class="col-lg-3">
-                            <a href="../templates/question.html#answers">answers(2)</a>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="questions">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="avatar">
-                                <img src="../static/img/cat03.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-10">
-                            <h2 class="question-title">Question 3</h2>
-                            <div class="question-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                                maiores optio pariatur perferendis quae quo sed?
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2">
-                                <button class="glow-on-hover " type="submit">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="like">
-                                                <img src="../static/img/like.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="counterLike">1</div>
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        <div class="col-lg-3">
-                            <a href="../templates/question.html#answers">answers(3)</a>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="row">
-                                <div class="col-lg-3">Tags:</div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
-                                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-4">
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Popular Tags</p>
-                        <div class="Tags">
-                            <a href="../templates/tag.html#tag">Home</a>
-                            <a href="../templates/tag.html#tag">Milk</a>
-                            <a href="../templates/tag.html#tag">Cats</a>
-                            <a href="../templates/tag.html#tag">Sofa</a>
-                            <a href="../templates/tag.html#tag">Mouse</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Best members</p>
-                        <ul>
-                            <a class="page-link" href="#">Black Cat</a>
-                            <a class="page-link" href="#">White Cat</a>
-                            <a class="page-link" href="#">Grey Cat</a>
-                            <a class="page-link" href="#">Pink Cat</a>
-                            <a class="page-link" href="#">Mr. Cat</a>
-                        </ul>
-                    </div>
-                </div>
+        <div class="col-lg-3">
+            <a href="../templates/question.html#answers">answers(1)</a>
+        </div>
+        <div class="col-lg-7">
+            <div class="row">
+                <div class="col-lg-3">Tags:</div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
             </div>
         </div>
     </div>
-</main>
 
-<footer class="footer mt-auto py-3">
-    <div class="container">
-        <span class="text-muted">Dev: Vyatkin Aleksandr</span>
+</div>
+
+<div class="questions">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{% static 'img/cat02.jpg' %}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <h2 class="question-title">Question 2</h2>
+            <div class="question-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
+                maiores optio pariatur perferendis quae quo sed?
+            </div>
+        </div>
     </div>
-</footer>
+    <div class="row">
+        <div class="col-lg-2">
+            <button class="glow-on-hover " type="submit">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="like">
+                            <img src="{% static 'img/like.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="counterLike">1</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+        <div class="col-lg-3">
+            <a href="../templates/question.html#answers">answers(2)</a>
+        </div>
+        <div class="col-lg-7">
+            <div class="row">
+                <div class="col-lg-3">Tags:</div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="questions">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{% static 'img/cat03.jpg' %}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <h2 class="question-title">Question 3</h2>
+            <div class="question-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
+                maiores optio pariatur perferendis quae quo sed?
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <button class="glow-on-hover " type="submit">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="like">
+                            <img src="{% static 'img/like.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="counterLike">1</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+        <div class="col-lg-3">
+            <a href="../templates/question.html#answers">answers(3)</a>
+        </div>
+        <div class="col-lg-7">
+            <div class="row">
+                <div class="col-lg-3">Tags:</div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Home</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Cats</a></div>
+                <div class="col-lg-3"><a href="../templates/tag.html#tag">Milk</a></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'inc/paginator.html' %}
+
+{% endblock %}
 
 
-<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-
-
-</body>
-</html>

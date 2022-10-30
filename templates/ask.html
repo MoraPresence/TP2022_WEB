@@ -1,131 +1,28 @@
-<!doctype html>
-<html lang="en" class="h-100">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+{% extends 'inc/base.html' %}
 
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
+{% load static %}
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column h-100">
-
-<header class="header-index">
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md fixed-top">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-md mb-2 mb-md-0"></ul>
-                <a class="navbar-brand" href="../templates/index.html">
-                    <div class="logo">
-                        <img src="../static/img/Logo.jpg" alt="">
-                    </div>
-                </a>
-                <a class="navbar-brand" href="../templates/index.html">Cat OverFlow</a>
-                <div class="ask-button">
-                    <button type="button" class="btn btn-outline-light me-2">Ask</button>
-                </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="SearchLine">
-                </form>
-            </div>
-            <div class="collapse navbar-collapse">
-                <div class="container-user-settings">
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">LogOut</button>
-                    </div>
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">Settings</button>
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="avatar">
-                        <img src="../static/img/cat02.jpg" alt="">
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="Nickname">Mr.Cat</div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
-
+{% block content %}
 <!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        <h1>New question</h1>
-        <div class="row">
-            <div class="col-8">
-                <div class="mb-3">
-                    <label for="TitleData" class="form-label">Title</label>
-                    <input type="text" class="form-control" minlength="10" maxlength="60" id="TitleData"
-                           placeholder="How to drink milk?" required>
-                </div>
-                <div class="mb-3">
-                    <label for="TextData" class="form-label">Text</label>
-                    <textarea type="text" class="form-control" id="TextData" rows="12" minlength="10" maxlength="800" required></textarea>
-                </div>
-                <div class="mb-3 ">
-                    <label for="TagsData" class="form-label">Tags</label>
-                    <input type="text" class="form-control"  maxlength="60" id="TagsData">
-                </div>
+<div class="mb-3">
+    <label for="TitleData" class="form-label">Title</label>
+    <input type="text" class="form-control" minlength="10" maxlength="60" id="TitleData"
+           placeholder="How to drink milk?" required>
+</div>
+<div class="mb-3">
+    <label for="TextData" class="form-label">Text</label>
+    <textarea type="text" class="form-control" id="TextData" rows="12" minlength="10" maxlength="800"
+              required></textarea>
+</div>
+<div class="mb-3 ">
+    <label for="TagsData" class="form-label">Tags</label>
+    <input type="text" class="form-control" maxlength="60" id="TagsData">
+</div>
 
-                <div class="mb-3">
-                    <div class="ask-button">
-                        <button type="button" class="btn btn-outline-light me-2">Ask</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Popular Tags</p>
-                        <div class="Tags">
-                            <a href="#">Home</a>
-                            <a href="#">Milk</a>
-                            <a href="#">Cats</a>
-                            <a href="#">Sofa</a>
-                            <a href="#">Mouse</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Best members</p>
-                        <ul>
-                            <a class="page-link" href="#">Black Cat</a>
-                            <a class="page-link" href="#">White Cat</a>
-                            <a class="page-link" href="#">Grey Cat</a>
-                            <a class="page-link" href="#">Pink Cat</a>
-                            <a class="page-link" href="#">Mr. Cat</a>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+<div class="mb-3">
+    <div class="ask-button">
+        <button type="button" class="btn btn-outline-light me-2">Ask</button>
     </div>
-</main>
+</div>
 
-<footer class="footer mt-auto py-3">
-    <div class="container">
-        <span class="text-muted">Dev: Vyatkin Aleksandr</span>
-    </div>
-</footer>
-
-
-<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-
-
-</body>
-</html>
+{% endblock %}

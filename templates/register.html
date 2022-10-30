@@ -1,166 +1,61 @@
-<!doctype html>
-<html lang="en" class="h-100">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+{% extends 'inc/base.html' %}
 
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
+{% load static %}
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column h-100">
-
-<header class="header-index">
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md fixed-top">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-md mb-2 mb-md-0"></ul>
-                <a class="navbar-brand" href="../templates/index.html">
-                    <div class="logo">
-                        <img src="../static/img/Logo.jpg" alt="">
-                    </div>
-                </a>
-                <a class="navbar-brand" href="../templates/index.html">Cat OverFlow</a>
-                <div class="ask-button">
-                    <button type="button" class="btn btn-outline-light me-2">Ask</button>
-                </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                           id="SearchLine">
-                </form>
-            </div>
-            <div class="collapse navbar-collapse">
-                <div class="container-user-settings">
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">LogOut</button>
-                    </div>
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">Settings</button>
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="avatar">
-                        <img src="../static/img/cat02.jpg" alt="">
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="Nickname">Mr.Cat</div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+{% block content %}
 
 <!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        <h1>Registration</h1>
-        <div class="row">
-            <div class="col-8">
-                <div class="container">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-                            <form>
-                                <div class="form-outline mb-4">
-                                    <h2 class="text-error">Login is in use</h2>
-                                    <input type="text" id="formLoginRegister"
-                                           class="form-control form-control-lg"/>
-                                    <label class="form-label" for="formLoginRegister">Login</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <h2 class="text-error">Email is in use</h2>
-                                    <input type="email" id="formEmailRegister"
-                                           class="form-control form-control-lg"/>
-                                    <label class="form-label" for="formEmailRegister">Your Email</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <h2 class="text-error">Nickname is in use</h2>
-                                    <input type="email" id="formNicknameRegister"
-                                           class="form-control form-control-lg"/>
-                                    <label class="form-label" for="formNicknameRegister">Your Nickname</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4cg"
-                                           class="form-control form-control-lg" minlength="4" maxlength="32" required/>
-                                    <label class="form-label" for="form3Example4cg">Password</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <h2 class="text-error">Passwords do not match</h2>
-                                    <input type="password" id="form3Example4cdg"
-                                           class="form-control form-control-lg"/>
-                                    <label class="form-label" for="form3Example4cdg">Repeat your
-                                        password</label>
-                                </div>
-                                <div class="mb-4">
-                                    <input class="form-control" type="file" id="formAvatarUpload">
-                                    <label for="formAvatarUpload" class="form-label">Upload avatar</label>
-                                </div>
-                                <div class="ask-button d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-light me-2">Register</button>
-                                </div>
-                                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
-                                        href="../templates/login.html"
-                                        class="fw-bold text-body"><u>Login here</u></a></p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Popular Tags</p>
-                        <div class="Tags">
-                            <a href="#">Home</a>
-                            <a href="#">Milk</a>
-                            <a href="#">Cats</a>
-                            <a href="#">Sofa</a>
-                            <a href="#">Mouse</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Best members</p>
-                        <ul>
-                            <a class="page-link" href="#">Black Cat</a>
-                            <a class="page-link" href="#">White Cat</a>
-                            <a class="page-link" href="#">Grey Cat</a>
-                            <a class="page-link" href="#">Pink Cat</a>
-                            <a class="page-link" href="#">Mr. Cat</a>
-                        </ul>
-                    </div>
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="card-body p-5">
+            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+            <form>
+                <div class="form-outline mb-4">
+                    <h2 class="text-error">Login is in use</h2>
+                    <input type="text" id="formLoginRegister"
+                           class="form-control form-control-lg"/>
+                    <label class="form-label" for="formLoginRegister">Login</label>
                 </div>
 
-            </div>
+                <div class="form-outline mb-4">
+                    <h2 class="text-error">Email is in use</h2>
+                    <input type="email" id="formEmailRegister"
+                           class="form-control form-control-lg"/>
+                    <label class="form-label" for="formEmailRegister">Your Email</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <h2 class="text-error">Nickname is in use</h2>
+                    <input type="email" id="formNicknameRegister"
+                           class="form-control form-control-lg"/>
+                    <label class="form-label" for="formNicknameRegister">Your Nickname</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="form3Example4cg"
+                           class="form-control form-control-lg" minlength="4" maxlength="32" required/>
+                    <label class="form-label" for="form3Example4cg">Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <h2 class="text-error">Passwords do not match</h2>
+                    <input type="password" id="form3Example4cdg"
+                           class="form-control form-control-lg"/>
+                    <label class="form-label" for="form3Example4cdg">Repeat your
+                        password</label>
+                </div>
+                <div class="mb-4">
+                    <input class="form-control" type="file" id="formAvatarUpload">
+                    <label for="formAvatarUpload" class="form-label">Upload avatar</label>
+                </div>
+                <div class="ask-button d-flex justify-content-center">
+                    <button type="button" class="btn btn-outline-light me-2">Register</button>
+                </div>
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
+                        href="../templates/login.html"
+                        class="fw-bold text-body"><u>Login here</u></a></p>
+            </form>
         </div>
     </div>
-</main>
-
-<footer class="footer mt-auto py-3">
-    <div class="container">
-        <span class="text-muted">Dev: Vyatkin Aleksandr</span>
-    </div>
-</footer>
-
-
-<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-
-
-</body>
-</html>
+</div>
+{% endblock %}
