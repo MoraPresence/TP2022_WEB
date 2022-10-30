@@ -1,17 +1,19 @@
-import string
-
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
+from . import models
 
 
 # @require_GET
 def index(request):
-    return render(request, 'index.html')
+    question_list = {'questions': models.QUESTIONS}
+    return render(request, 'index.html', context=question_list)
 
 
 def question(request, question_id: int):
-    return render(request, 'question.html')
+    question_item = models.QUESTIONS[question_id]
+    answer_list = {'answers': models.ANSWERS}
+    return render(request, 'question.html', {'question' : question_item, 'answers': models.ANSWERS})
 
 
 def ask(request):
@@ -30,6 +32,6 @@ def settings(request):
     return render(request, 'settings.html')
 
 
-def tag(request, tag):
-    return render(request, 'tag.html')
-
+def tag(request, tag_id):
+    tag_list = {'questions': models.QUESTIONS}
+    return render(request, 'tag.html', context=tag_list)

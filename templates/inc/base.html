@@ -32,31 +32,14 @@
                 </a>
                 <a class="navbar-brand" href="{% url 'index' %}">Cat OverFlow</a>
                 <div class="ask-button">
-                    <button type="button" class="btn btn-outline-light me-2">Ask</button>
+                    <button type="button" class="btn btn-outline-light me-2" onclick="document.location='/ask'">Ask</button>
                 </div>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                            id="SearchLine">
                 </form>
             </div>
-            <div class="collapse navbar-collapse">
-                <div class="container-user-settings">
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">LogOut</button>
-                    </div>
-                    <div class="button-authorized">
-                        <button type="button" class="btn btn-outline-light me-2">Settings</button>
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="avatar">
-                        <img src="{% static 'img/cat02.jpg' %}" alt="">
-                    </div>
-                </div>
-                <div class="container-user-info">
-                    <div class="Nickname">Mr.Cat</div>
-                </div>
-            </div>
+            {% include 'inc/authorization.html' %}
         </div>
     </nav>
 </header>
@@ -67,36 +50,11 @@
         <h1>FIXME</h1>
         <div class="row">
             <div class="col-8">
-
                 {% block content %}
                 {% endblock %}
-
             </div>
             <div class="col-4">
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Popular Tags</p>
-                        <div class="Tags">
-                            <a href="../templates/tag.html#tag">Home</a>
-                            <a href="../templates/tag.html#tag">Milk</a>
-                            <a href="../templates/tag.html#tag">Cats</a>
-                            <a href="../templates/tag.html#tag">Sofa</a>
-                            <a href="../templates/tag.html#tag">Mouse</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="site-info">
-                    <div class="row">
-                        <p style="color: darkgreen">Best members</p>
-                        <ul>
-                            <a class="page-link" href="#">Black Cat</a>
-                            <a class="page-link" href="#">White Cat</a>
-                            <a class="page-link" href="#">Grey Cat</a>
-                            <a class="page-link" href="#">Pink Cat</a>
-                            <a class="page-link" href="#">Mr. Cat</a>
-                        </ul>
-                    </div>
-                </div>
+                {% include 'inc/sidebar.html' %}
             </div>
         </div>
     </div>
@@ -112,7 +70,5 @@
 <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-
-
 </body>
 </html>

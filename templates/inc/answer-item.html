@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class="answer">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{% static 'img/cat02.jpg' %}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="question-text">
+                YES!!! Try running faster!!
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            {% include 'inc/like-button.html' %}
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="correctAnswer"
+                       value="something" checked>
+                <label class="form-check-label">Correct!</label>
+            </div>
+        </div>
+        <div class="col-lg-7">
+
+        </div>
+    </div>
+</div>

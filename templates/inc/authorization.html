@@ -1,0 +1,19 @@
+{% load static %}
+<div class="collapse navbar-collapse">
+    <div class="container-user-settings">
+        <div class="button-authorized">
+            <button type="button" class="btn btn-outline-light me-2">LogOut</button>
+        </div>
+        <div class="button-authorized">
+             <button type="button" class="btn btn-outline-light me-2" onclick="document.location='/settings'">Settings</button>
+        </div>
+    </div>
+    <div class="container-user-info">
+        <div class="avatar">
+            <img src="{% static 'img/cat02.jpg' %}" alt="">
+        </div>
+    </div>
+    <div class="container-user-info">
+        <div class="Nickname">Mr.Cat</div>
+    </div>
+</div>

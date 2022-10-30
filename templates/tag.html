@@ -3,107 +3,11 @@
 {% load static %}
 
 {% block content %}
-<div class="questions">
-    <div class="row">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <img src="{% static 'img/cat01.jpg' %}" alt="">
-            </div>
-        </div>
-        <div class="col-lg-10">
-            <h2 class="question-title">Question 1</h2>
-            <div class="question-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                maiores optio pariatur perferendis quae quo sed?
-            </div>
-        </div>
-    </div>
 
+{% for question in questions %}
+    {% include 'inc/question-item.html' %}
+{% endfor %}
 
-    <div class="row">
-        <div class="col-lg-2">
-            {% include 'inc/like-button.html' %}
-        </div>
-        <div class="col-lg-3">
-            <a href="#">answers(1)</a>
-        </div>
-        <div class="col-lg-7">
-            <div class="row">
-                <div class="col-lg-3">Tags:</div>
-                <div class="col-lg-3"><a href="#">Home</a></div>
-                <div class="col-lg-3"><a href="#">Cats</a></div>
-                <div class="col-lg-3"><a href="#">Milk</a></div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="questions">
-    <div class="row">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <img src="{% static 'img/cat02.jpg' %}" alt="">
-            </div>
-        </div>
-        <div class="col-lg-10">
-            <h2 class="question-title">Question 2</h2>
-            <div class="question-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                maiores optio pariatur perferendis quae quo sed?
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-2">
-           {% include 'inc/like-button.html' %}
-        </div>
-        <div class="col-lg-3">
-            <a href="#">answers(2)</a>
-        </div>
-        <div class="col-lg-7">
-            <div class="row">
-                <div class="col-lg-3">Tags:</div>
-                <div class="col-lg-3"><a href="#">Home</a></div>
-                <div class="col-lg-3"><a href="#">Cats</a></div>
-                <div class="col-lg-3"><a href="#">Milk</a></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="questions">
-    <div class="row">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <img src="{% static 'img/cat03.jpg' %}" alt="">
-            </div>
-        </div>
-        <div class="col-lg-10">
-            <h2 class="question-title">Question 3</h2>
-            <div class="question-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis dolore eius enim
-                maiores optio pariatur perferendis quae quo sed?
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-2">
-            {% include 'inc/like-button.html' %}
-        </div>
-        <div class="col-lg-3">
-            <a href="#">answers(3)</a>
-        </div>
-        <div class="col-lg-7">
-            <div class="row">
-                <div class="col-lg-3">Tags:</div>
-                <div class="col-lg-3"><a href="#">Home</a></div>
-                <div class="col-lg-3"><a href="#">Cats</a></div>
-                <div class="col-lg-3"><a href="#">Milk</a></div>
-            </div>
-        </div>
-    </div>
-</div>
 {% include 'inc/paginator.html' %}
 
 {% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="site-info">
+    <div class="row">
+        <p style="color: darkgreen">Popular Tags</p>
+        <div class="Tags">
+            <a href="{% url 'tag' tag_id='Home' %}">Home</a>
+            <a href="{% url 'tag' tag_id='Milk' %}">Milk</a>
+            <a href="{% url 'tag' tag_id='Cats' %}">Cats</a>
+            <a href="{% url 'tag' tag_id='Sofa' %}">Sofa</a>
+            <a href="{% url 'tag' tag_id='Mouse' %}">Mouse</a>
+        </div>
+    </div>
+</div>
+<div class="site-info">
+    <div class="row">
+        <p style="color: darkgreen">Best members</p>
+        <ul>
+            <a class="page-link" href="#">Black Cat</a>
+            <a class="page-link" href="#">White Cat</a>
+            <a class="page-link" href="#">Grey Cat</a>
+            <a class="page-link" href="#">Pink Cat</a>
+            <a class="page-link" href="#">Mr. Cat</a>
+        </ul>
+    </div>
+</div>
