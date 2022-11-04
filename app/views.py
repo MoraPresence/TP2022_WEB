@@ -1,19 +1,28 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_GET
+from django.views.generic import ListView
+
+from CatOverflow.paginator import paginate
 from . import models
+from CatOverflow import paginator
 
 
 # @require_GET
 def index(request):
-    question_list = {'questions': models.QUESTIONS}
-    return render(request, 'index.html', context=question_list)
+    page_list = models.QUESTIONS
+    return render(request, 'index.html', paginate(page_list, request))
+
+
+class QuestionHome(ListView):
+    paginate_by = 2
 
 
 def question(request, question_id: int):
     question_item = models.QUESTIONS[question_id]
     answer_list = {'answers': models.ANSWERS}
-    return render(request, 'question.html', {'question' : question_item, 'answers': models.ANSWERS})
+    return render(request, 'question.html', {'question': question_item, 'answers': models.ANSWERS})
 
 
 def ask(request):
