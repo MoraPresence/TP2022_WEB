@@ -3,8 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def paginate(objects_list, request):
     context = {}
-
-    paginator = Paginator(objects_list, 2)
+    paginator = Paginator(objects_list, 4)
     page = request.GET.get('page', 1)
 
     try:
@@ -26,9 +25,11 @@ def paginate(objects_list, request):
             end_pages = context['objects_list'].paginator.num_pages
             start_pages = end_pages - add_pages * 2
 
-        page_range = range(start_pages, end_pages + 1)
+        current_page_range = range(start_pages, end_pages + 1)
+    else:
+        current_page_range = context['objects_list'].paginator.page_range
 
-    context['page_range'] = page_range
+    context['page_range'] = current_page_range
     context['num_pages'] = paginator.num_pages
     context['current_num_objects'] = len(paginator.page(paginator.num_pages))
 

@@ -15,10 +15,6 @@ def index(request):
     return render(request, 'index.html', paginate(page_list, request))
 
 
-class QuestionHome(ListView):
-    paginate_by = 2
-
-
 def question(request, question_id: int):
     question_item = models.QUESTIONS[question_id]
     answer_list = {'answers': models.ANSWERS}
