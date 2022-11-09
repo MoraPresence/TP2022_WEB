@@ -1,45 +1,46 @@
 .container {
     padding: 0 15px 0;
-
 }
 
-.refButton{
-    color: floralwhite; !important;
-    text-decoration: none; !important;
+.refButton {
+    color: floralwhite;
+!important;
+    text-decoration: none;
+!important;
 }
 
 input:valid {
-  border-color: green;
+    border-color: green;
 }
 
 input:invalid {
-  border-color: red;
+    border-color: red;
 }
 
 textarea:valid {
-  border-color: green;
+    border-color: green;
 }
 
 textarea:invalid {
-  border-color: red;
+    border-color: red;
 }
 
 textarea {
-  resize: none;
+    resize: none;
 }
 
-.Nickname{
+.Nickname {
     margin-left: 20px;
     color: floralwhite;
     font-family: "Bradley Hand ITC";
     font-size: 20px;
 }
 
-.button-authorized{
+.button-authorized {
     margin: 20px;
 }
 
-.btn{
+.btn {
     width: 80px;
 }
 
@@ -47,8 +48,8 @@ textarea {
     margin-bottom: 150px;
 }
 
-#SearchLine{
-  width: 500px;
+#SearchLine {
+    width: 500px;
 }
 
 .navbar {
@@ -56,7 +57,7 @@ textarea {
     background: lightpink;
 }
 
-.question-text{
+.question-text {
     position: static;
 }
 
@@ -95,11 +96,11 @@ body, html {
 }
 
 
-.col-lg-2{
+.col-lg-2 {
     margin-bottom: 20px;
 }
 
-.answers-area{
+.answers-area {
     border: 2px solid black;
     border-left: none;
     border-right: none;
@@ -124,7 +125,7 @@ body, html {
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
     top: -2px;
-    left:-2px;
+    left: -2px;
     background-size: 400%;
     z-index: -1;
     filter: blur(5px);
@@ -161,13 +162,19 @@ body, html {
 }
 
 @keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
 }
 
 
-.logo{
+.logo {
     width: 120px;
     height: 120px;
     border: 2px solid floralwhite;
@@ -207,29 +214,30 @@ img {
     padding: 20px;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-family: Arial;
-    font-size: 14px;
+    font-family: "Droid serif";
+    font-size: 16px;
+    margin-top: 20px;
 }
 
 .question {
     padding: 20px;
     margin-bottom: 20px;
-    font-family: Arial;
-    font-size: 14px;
+    font-family: "Droid serif";
+    font-size: 16px;
     margin-top: 20px;
 }
 
-.answer{
+.answer {
     border: 2px solid floralwhite;
     padding: 20px;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-family: Arial;
-    font-size: 14px;
+    font-family: "Droid serif";
+    font-size: 16px;
 }
 
 
-.site-info{
+.site-info {
     border: 2px solid lightpink;
     padding: 20px;
     border-radius: 6px;
@@ -243,21 +251,21 @@ img {
     min-width: 936px;
 }
 
-.page-link{
+.page-link {
     margin-left: 20px;
 }
 
-.form-control{
+.form-control {
     overflow: hidden;
 }
 
 /*ask*/
 
-.mb-3{
+.mb-3 {
     margin-right: 20px;
 }
 
-.text-error{
+.text-error {
     color: red;
-    font-size:15px;
+    font-size: 15px;
 }
