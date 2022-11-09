@@ -18,7 +18,7 @@ def index(request):
 def question(request, question_id: int):
     question_item = models.QUESTIONS[question_id]
     answer_list = {'answers': models.ANSWERS}
-    return render(request, 'question.html', {'question': question_item, 'answers': models.ANSWERS})
+    return render(request, 'question.html', {'question': question_item, 'objects_list': models.ANSWERS})
 
 
 def ask(request):
@@ -38,5 +38,5 @@ def settings(request):
 
 
 def tag(request, tag_id):
-    tag_list = {'questions': models.QUESTIONS}
-    return render(request, 'tag.html', context=tag_list)
+    tag_list = models.QUESTIONS
+    return render(request, 'tag.html', paginate(tag_list, request))

@@ -62,8 +62,8 @@ textarea {
 
 .flex-shrink-0 {
     background: #a7c7f6;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 
 body, html {
@@ -216,6 +216,7 @@ img {
     margin-bottom: 20px;
     font-family: Arial;
     font-size: 14px;
+    margin-top: 20px;
 }
 
 .answer{
@@ -235,6 +236,7 @@ img {
     margin-bottom: 20px;
     font-family: Arial;
     font-size: 20px;
+    margin-top: 20px;
 }
 
 .rows {
