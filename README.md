@@ -4,7 +4,7 @@ MOND_DB - in-memory key-value database
 
 <div class="app">
     <h1 class="app__name">MOND_DB</h1>
-    <p class="app__description">Проект на курсе по углубленному C++</p>
+    <p class="app__description">Проект на курсе WEB-технологии</p>
 </div>
 
 <section class="requirements">
@@ -37,6 +37,5 @@ MOND_DB - in-memory key-value database
         <li class="list__item item">
         <a href="https://dbdesigner.page.link/t956ZYsX3kz4ppFL9">Подготовлена диаграмма бд к проекту:</a>
         </li>
-        <li class="list__item item">
     </ul>
 </section>
