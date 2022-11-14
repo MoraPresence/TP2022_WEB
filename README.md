@@ -1,9 +1,7 @@
 # TP2022_WEB
 
-MOND_DB - in-memory key-value database
-
 <div class="app">
-    <h1 class="app__name">MOND_DB</h1>
+    <h1 class="app__name">CatOverflow</h1>
     <p class="app__description">Проект на курсе WEB-технологии</p>
 </div>
 
