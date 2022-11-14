@@ -12,13 +12,13 @@ from CatOverflow import paginator
 # @require_GET
 def index(request):
     page_list = models.QUESTIONS
-    return render(request, 'index.html', paginate(page_list, request))
+    return render(request, 'index.html', paginate(page_list, request, 4))
 
 
 def question(request, question_id: int):
     question_item = models.QUESTIONS[question_id]
-    answer_list = {'answers': models.ANSWERS}
-    return render(request, 'question.html', {'question': question_item, 'objects_list': models.ANSWERS})
+    context = paginate(models.ANSWERS, request, 2)
+    return render(request, 'question.html', {'question': question_item, 'comments': context})
 
 
 def ask(request):

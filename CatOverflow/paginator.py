@@ -1,9 +1,9 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def paginate(objects_list, request):
+def paginate(objects_list, request, items_per_page: int):
     context = {}
-    paginator = Paginator(objects_list, 4)
+    paginator = Paginator(objects_list, items_per_page)
     page = request.GET.get('page', 1)
 
     try:

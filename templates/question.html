@@ -31,9 +31,11 @@
     </div>
 </div>
 <div class="answers-area" id="answers">
-    {% for answer in objects_list %}
+    {% for answer in comments.objects_list %}
         {% include 'inc/answer-item.html' %}
     {% endfor %}
+
+    {% include 'inc/paginator.html' with objects_list=comments.objects_list page_range=comments.page_range %}
 </div>
 
 

@@ -13,11 +13,9 @@ QUESTIONS = [
 ANSWERS = [
     {
         'id': answer_id,
-        'title': f'Question #{answer_id}',
-        'text': f'Text of question #{answer_id}',
-        'answers_number': answer_id * answer_id,
-        'tags': ['tag' for i in range(answer_id)]
-    } for answer_id in range(2)
+        'title': f'Answer #{answer_id}',
+        'text': f'Text of answer #{answer_id}',
+    } for answer_id in range(10)
 ]
 
 PAGES = [

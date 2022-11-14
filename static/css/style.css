@@ -62,22 +62,19 @@ textarea {
 }
 
 .flex-shrink-0 {
-    background: #a7c7f6;
-    width: 100%;
-    height: 100%;
+    overflow: auto;
+    height: auto;
 }
 
 body, html {
-    width: 100%;
+    background: #a7c7f6;
+    height: 100vh;
 }
-
-/*.d-flex{*/
-/*    #background: #e0cdb9;*/
-/*}*/
 
 .footer {
     background: #cab388;
-    z-index: 1000000;
+    z-index: 0;
+    margin-top: auto;
 }
 
 .button-authorized {
