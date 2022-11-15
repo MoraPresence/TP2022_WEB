@@ -40,7 +40,7 @@ def settings(request):
 
 def tag(request, tag_id):
     if tag_id == "hot":
-        tag_list = Question.objects.hot_questions(tag_id)
+        tag_list = Question.objects.hot_questions()
     else:
         tag_list = Question.objects.tag_questions(tag_id)
     context = paginate(tag_list, request, 4)
