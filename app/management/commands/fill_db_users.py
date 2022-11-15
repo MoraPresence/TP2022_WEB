@@ -1,3 +1,5 @@
+import os, random
+
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
@@ -5,7 +7,7 @@ from app.models import Profile
 
 from faker import Faker
 
-import requests
+# import requests
 
 fake = Faker()
 
@@ -19,19 +21,24 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         total = kwargs['total']
         for i in range(total):
-            Profile.user = User.objects.create_user(
-                username=fake.name(),
+            user = User.objects.create_user(
+                username=fake.first_name() + str(random.randint(1, 10000))+fake.last_name(),
                 email=fake.email(),
                 first_name=fake.first_name(),
                 last_name=fake.last_name(),
                 password='1111')
 
-            url = fake.image_url()
-            s = requests.get(url)
+            image = random.choice(os.listdir("uploads/"))
+            profile = Profile.objects.create(user=user, image=image)
 
-            image_name = fake.word()
-
-            with open(f"uploads/{image_name}.png", "wb") as f:
-                f.write(s.content)
-
-            Profile.image = f"uploads/{image_name}.png"
+        #
+        #     url = fake.image_url()
+        #     s = requests.get(url)
+        #
+        #     image_name = fake.word()
+        #
+        #     with open(f"uploads/{image_name}.png", "wb") as f:
+        #         f.write(s.content)
+        #
+        #     image = f"uploads/{image_name}.png"
+        #     profile = Profile.objects.create(user=user, image=image)

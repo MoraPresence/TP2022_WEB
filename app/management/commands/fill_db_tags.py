@@ -16,5 +16,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         total = kwargs['total']
         for i in range(total):
-            tag = Tag.objects.create(title=fake.word())
-            tag.save()
+            tag = Tag.objects.create(name=fake.word()[:10])

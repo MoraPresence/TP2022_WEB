@@ -1,42 +1,48 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.views.decorators.http import require_GET
-from django.views.generic import ListView
+from django.shortcuts import render, get_object_or_404
 
 from CatOverflow.paginator import paginate
-from . import models
-from CatOverflow import paginator
-
 
 # @require_GET
+from .models import Question, Answer, get_best_members, get_popular_tags
+
+
 def index(request):
-    page_list = models.QUESTIONS
-    return render(request, 'index.html', paginate(page_list, request, 4))
+    page_list = Question.objects.new_questions()
+    context = paginate(page_list, request, 4)
+
+    return render(request, 'index.html',
+                  {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def question(request, question_id: int):
-    question_item = models.QUESTIONS[question_id]
-    context = paginate(models.ANSWERS, request, 2)
-    return render(request, 'question.html', {'question': question_item, 'comments': context})
+    question_item = get_object_or_404(Question, pk=question_id)
+    context = paginate(Answer.objects.filter(question_id=question_id), request, 4)
+    return render(request, 'question.html',
+                  {'question': question_item, 'answers': context, 'best_members': get_best_members(),
+                   'popular_tags': get_popular_tags()})
 
 
 def ask(request):
-    return render(request, 'ask.html')
+    return render(request, 'ask.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def register(request):
-    return render(request, 'register.html')
+    return render(request, 'register.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def settings(request):
-    return render(request, 'settings.html')
+    return render(request, 'settings.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def tag(request, tag_id):
-    tag_list = models.QUESTIONS
-    return render(request, 'tag.html', paginate(tag_list, request))
+    if tag_id == "hot":
+        tag_list = Question.objects.hot_questions(tag_id)
+    else:
+        tag_list = Question.objects.tag_questions(tag_id)
+    context = paginate(tag_list, request, 4)
+    return render(request, 'tag.html',
+                  {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})

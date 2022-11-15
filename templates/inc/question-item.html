@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-2">
             <div class="avatar">
-                <img src="{% static 'img/cat01.jpg' %}" alt="">
+                <img src="{{ question.author.get_avatar}}" alt="">
             </div>
         </div>
         <div class="col-lg-10">
@@ -21,13 +21,13 @@
             {% include 'inc/like-button.html' %}
         </div>
         <div class="col-lg-3">
-            <a href="{% url 'question' question_id=question.id %}">answers({{ question.answers_number }})</a>
+            <a href="{% url 'question' question_id=question.id %}">answers({{ question.answers_count }})</a>
         </div>
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-lg-3">Tags:</div>
-                {% for tag in question.tags %}
-                    <div class="col-lg-3"><a href="{% url 'tag' tag_id='home' %}">{{tag}}</a></div>
+                {% for tag in question.tag.all %}
+                    <div class="col-lg-3"><a href="{% url 'tag' tag_id=tag %}">{{tag}}</a></div>
                 {% endfor %}
             </div>
         </div>

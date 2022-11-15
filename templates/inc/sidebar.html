@@ -4,11 +4,9 @@
     <div class="row">
         <p style="color: darkgreen">Popular Tags</p>
         <div class="Tags">
-            <a href="{% url 'tag' tag_id='Home' %}">Home</a>
-            <a href="{% url 'tag' tag_id='Milk' %}">Milk</a>
-            <a href="{% url 'tag' tag_id='Cats' %}">Cats</a>
-            <a href="{% url 'tag' tag_id='Sofa' %}">Sofa</a>
-            <a href="{% url 'tag' tag_id='Mouse' %}">Mouse</a>
+            {% for tag in popular_tags %}
+            <a href="{% url 'tag' tag_id=tag.name %}">{{ tag.name }}</a>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -16,11 +14,9 @@
     <div class="row">
         <p style="color: darkgreen">Best members</p>
         <ul>
-            <a class="page-link" href="#">Black Cat</a>
-            <a class="page-link" href="#">White Cat</a>
-            <a class="page-link" href="#">Grey Cat</a>
-            <a class="page-link" href="#">Pink Cat</a>
-            <a class="page-link" href="#">Mr. Cat</a>
+            {% for member in best_members %}
+            <a class="page-link" href="#">{{ member.user.username }}</a>
+            {% endfor %}
         </ul>
     </div>
 </div>

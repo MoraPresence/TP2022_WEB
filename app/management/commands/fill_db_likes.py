@@ -7,6 +7,7 @@ fake = Faker()
 
 from app.models import *
 
+
 class Command(BaseCommand):
     help = u'Заполнение базы данных случайными данными'
 
@@ -15,15 +16,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         total = kwargs['total']
-        author_list = User.objects.all()
+        author_list = Profile.objects.all()
         questions_list = Question.objects.all()
         answers_list = Answer.objects.all()
-        votes = [1, -1]
 
         for i in range(total):
             user = random.choice(author_list)
             question = random.choice(questions_list)
             answer = random.choice(answers_list)
 
-            like_q = Like.objects.create(target=question, user=user.profile, pk=question.id, vote_type=random.choice(votes))
-            like_c = Like.objects.create(target=answer, user=user.profile, pk=answer.id, vote_type=random.choice(votes))
+            like_question = Like.objects.create(content_type=ContentType.objects.get_for_model(question),
+                                                object_id=question.id, user=user,
+                                                count=random.randint(0, 100))
+            like_answer = Like.objects.create(content_type=ContentType.objects.get_for_model(answer),
+                                              object_id=answer.id,
+                                              user=user,
+                                              count=random.randint(0, 100))

@@ -12,11 +12,11 @@
     </div>
     <div class="container-user-info">
         <div class="avatar">
-            <img src="{% static 'img/cat02.jpg' %}" alt="">
+            <img src="{{ user.profile.get_avatar }}" alt="">
         </div>
     </div>
     <div class="container-user-info">
-        <div class="Nickname">Mr.Cat</div>
+        <div class="Nickname">{{ user.username }}</div>
     </div>
 </div>
 {% else %}

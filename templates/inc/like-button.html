@@ -1,5 +1,5 @@
 {% load static %}
 <button class="glow-on-hover likeBtn" type="submit">
     <img src="{% static 'img/like.png' %}" alt="" style="width: 25px; height: 25px;">
-    (<span class="totalLikes">0</span>)
+    (<span class="totalLikes">{{ question.likes.count }}</span>)
 </button>
