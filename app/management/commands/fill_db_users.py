@@ -7,7 +7,7 @@ from app.models import Profile
 
 from faker import Faker
 
-# import requests
+import requests
 
 fake = Faker()
 
@@ -22,23 +22,22 @@ class Command(BaseCommand):
         total = kwargs['total']
         for i in range(total):
             user = User.objects.create_user(
-                username=fake.first_name() + str(random.randint(1, 10000))+fake.last_name(),
+                username=fake.first_name() + str(random.randint(1, 10000)) + fake.last_name(),
                 email=fake.email(),
                 first_name=fake.first_name(),
                 last_name=fake.last_name(),
                 password='1111')
 
-            image = random.choice(os.listdir("uploads/"))
-            profile = Profile.objects.create(user=user, image=image)
+            # image = random.choice(os.listdir("uploads/"))
+            # profile = Profile.objects.create(user=user, image=image)
 
-        #
-        #     url = fake.image_url()
-        #     s = requests.get(url)
-        #
-        #     image_name = fake.word()
-        #
-        #     with open(f"uploads/{image_name}.png", "wb") as f:
-        #         f.write(s.content)
-        #
-        #     image = f"uploads/{image_name}.png"
-        #     profile = Profile.objects.create(user=user, image=image)
+            url = fake.image_url()
+            s = requests.get(url)
+
+            image_name = fake.word()
+
+            with open(f"uploads/{image_name}.png", "wb") as f:
+                f.write(s.content)
+
+            image = f"uploads/{image_name}.png"
+            profile = Profile.objects.create(user=user, image=image)
