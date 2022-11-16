@@ -1,0 +1,13 @@
+{% extends 'inc/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% for question in questions.objects_list %}
+    {% include 'inc/question-item.html' %}
+{% endfor %}
+
+{% include 'inc/paginator.html' with objects_list=questions.objects_list page_range=questions.page_range %}
+
+{% endblock %}

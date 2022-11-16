@@ -39,10 +39,16 @@ def settings(request):
 
 
 def tag(request, tag_id):
-    if tag_id == "hot":
-        tag_list = Question.objects.hot_questions()
-    else:
-        tag_list = Question.objects.tag_questions(tag_id)
+    tag_list = Question.objects.tag_questions(tag_id)
     context = paginate(tag_list, request, 4)
     return render(request, 'tag.html',
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+
+
+def hot(request):
+    page_list = Question.objects.hot_questions()
+    context = paginate(page_list, request, 4)
+
+    return render(request, 'index.html',
+                  {'questions': context, 'best_members': get_best_members(),
+                   'popular_tags': get_popular_tags()})

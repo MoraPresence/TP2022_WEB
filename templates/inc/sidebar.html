@@ -1,5 +1,9 @@
 {% load static %}
-
+<div class="site-info" style="text-align: center; border: hidden">
+    <a class="fire" href="/hot/">
+        Hot
+    </a>
+</div>
 <div class="site-info">
     <div class="row">
         <p style="color: darkgreen">Popular Tags</p>
@@ -13,10 +17,11 @@
 <div class="site-info">
     <div class="row">
         <p style="color: darkgreen">Best members</p>
-        <ul>
+        <div class="Members">
             {% for member in best_members %}
             <a class="page-link" href="#">{{ member.user.username }}</a>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 </div>
+
