@@ -1,0 +1,73 @@
+<!doctype html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CatOverflow</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}?">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?">
+</head>
+<body class="d-flex flex-column">
+
+<header class="header-index">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-md mb-2 mb-md-0"></ul>
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <div class="logo">
+                        <img src="{% static 'img/Logo.jpg' %}" alt="">
+                    </div>
+                </a>
+                <a class="navbar-brand" href="{% url 'index' %}">Cat OverFlow</a>
+                <div class="ask-button">
+                    <button type="button" class="btn btn-outline-light me-2" onclick="document.location='/ask'">Ask</button>
+                </div>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                           id="SearchLine">
+                </form>
+            </div>
+            {% include 'inc/authorization.html' %}
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="col-4">
+                {% include 'inc/sidebar.html' %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">Dev: Vyatkin Aleksandr</span>
+    </div>
+</footer>
+
+
+<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+</html>

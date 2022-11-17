@@ -1,0 +1,53 @@
+{% extends 'inc/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Begin page content -->
+
+<div class="question">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{{ question.author.get_avatar }}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <h2 class="question-title">{{ question.title }}</h2>
+            <div class="question-text">
+                {{ question.text }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            {% include 'inc/like-button.html' %}
+        </div>
+
+        <div class="col-lg-10">
+
+        </div>
+    </div>
+</div>
+<div class="answers-area" id="answers">
+    {% for answer in answers.objects_list %}
+        {% include 'inc/answer-item.html' %}
+    {% endfor %}
+
+    {% include 'inc/paginator.html' with objects_list=answers.objects_list page_range=answers.page_range %}
+</div>
+
+
+<div class="mb-3">
+    <label for="TextData" class="form-label">Text</label>
+    <textarea type="text" class="form-control" id="TextData" rows="4" minlength="10" maxlength="200"
+              required></textarea>
+</div>
+
+<div class="mb-3">
+    <div class="ask-button">
+        <button type="button" class="btn btn-outline-light me-2">Answer</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load static %}
+
+<div class="questions">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <img src="{{ question.author.get_avatar}}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <h2 class="question-title">{{ question.title }}</h2>
+            <div class="question-text">
+                {{ question.text }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-2">
+            {% include 'inc/like-button.html' %}
+        </div>
+        <div class="col-lg-3">
+            <a href="{% url 'question' question_id=question.id %}">answers({{ question.answers_count }})</a>
+        </div>
+        <div class="col-lg-7">
+            <div class="row">
+                <div class="col-lg-3">Tags:</div>
+                {% for tag in question.tag.all %}
+                    <div class="col-lg-3"><a href="{% url 'tag' tag_id=tag %}">{{tag}}</a></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            {{ question.creating_date }}
+        </div>
+    </div>
+</div>

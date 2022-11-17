@@ -1,0 +1,27 @@
+{% load static %}
+<div class="site-info" style="text-align: center; border: hidden">
+    <a class="fire" href="/hot/">
+        Hot
+    </a>
+</div>
+<div class="site-info">
+    <div class="row">
+        <p style="color: darkgreen">Popular Tags</p>
+        <div class="Tags">
+            {% for tag in popular_tags %}
+            <a href="{% url 'tag' tag_id=tag.name %}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="site-info">
+    <div class="row">
+        <p style="color: darkgreen">Best members</p>
+        <div class="Members">
+            {% for member in best_members %}
+            <a class="page-link" href="#">{{ member.user.username }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

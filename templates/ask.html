@@ -1,0 +1,29 @@
+{% extends 'inc/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Begin page content -->
+
+<div class="mb-3">
+    <label for="TitleData" class="form-label">Title</label>
+    <input type="text" class="form-control" minlength="10" maxlength="60" id="TitleData"
+           placeholder="How to drink milk?" required>
+</div>
+<div class="mb-3">
+    <label for="TextData" class="form-label">Text</label>
+    <textarea type="text" class="form-control" id="TextData" rows="12" minlength="10" maxlength="800"
+              required></textarea>
+</div>
+<div class="mb-3 ">
+    <label for="TagsData" class="form-label">Tags</label>
+    <input type="text" class="form-control" maxlength="60" id="TagsData">
+</div>
+
+<div class="mb-3">
+    <div class="ask-button">
+        <button type="button" class="btn btn-outline-light me-2">Ask</button>
+    </div>
+</div>
+
+{% endblock %}

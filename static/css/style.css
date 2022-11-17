@@ -1,0 +1,283 @@
+.container {
+    padding: 0 15px 0;
+}
+
+.refButton {
+    color: floralwhite;
+!important;
+    text-decoration: none;
+!important;
+}
+
+input:valid {
+    border-color: green;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+textarea:valid {
+    border-color: green;
+}
+
+textarea:invalid {
+    border-color: red;
+}
+
+textarea {
+    resize: none;
+}
+
+.Nickname {
+    margin-left: 20px;
+    color: floralwhite;
+    font-family: "Bradley Hand ITC";
+    font-size: 20px;
+}
+
+.button-authorized {
+    margin: 20px;
+}
+
+.btn {
+    width: 80px;
+}
+
+.header-index {
+    margin-bottom: 150px;
+}
+
+#SearchLine {
+    width: 500px;
+}
+
+.navbar {
+    height: 150px;
+    background: lightpink;
+}
+
+.question-text {
+    position: static;
+}
+
+.flex-shrink-0 {
+    overflow: auto;
+    height: auto;
+}
+
+body, html {
+    background: #a7c7f6;
+    height: 100vh;
+}
+
+.footer {
+    background: #cab388;
+    z-index: 0;
+    margin-top: auto;
+}
+
+.button-authorized {
+    position: relative;
+}
+
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border: 2px solid floralwhite;
+    border-radius: 50%;
+    overflow: hidden;
+    object-position: 0 0;
+}
+
+
+.col-lg-2 {
+    margin-bottom: 20px;
+}
+
+.answers-area {
+    border: 2px solid black;
+    border-left: none;
+    border-right: none;
+    padding-top: 20px;
+}
+
+.glow-on-hover {
+    width: content-box;
+    height: content-box;
+    border: none;
+    outline: none;
+    color: black;
+    background: floralwhite;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: floralwhite
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: floralwhite;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+
+.logo {
+    width: 120px;
+    height: 120px;
+    border: 2px solid floralwhite;
+    border-radius: 50%;
+    overflow: hidden;
+    object-position: 0 0;
+}
+
+.close-image {
+    display: inline-block;
+    height: 10px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    width: 104px;
+}
+
+.avatar-navbar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid floralwhite;
+    border-radius: 50%;
+    overflow: hidden;
+    object-position: 0 0;
+}
+
+
+img {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.questions {
+    border: 2px solid floralwhite;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: "Droid serif";
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.question {
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: "Droid serif";
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.answer {
+    border: 2px solid floralwhite;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: "Droid serif";
+    font-size: 16px;
+}
+
+
+.site-info {
+    border: 2px solid lightpink;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: Arial;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.rows {
+    min-width: 936px;
+}
+
+.page-link {
+    margin-left: 20px;
+}
+
+.form-control {
+    overflow: hidden;
+}
+
+/*ask*/
+
+.mb-3 {
+    margin-right: 20px;
+}
+
+.text-error {
+    color: red;
+    font-size: 15px;
+}
+
+.fire {
+    color: #fff;
+    text-shadow:
+             0 0 2px #eee,
+             0 0 4px #fff,
+             0 -2px 4px #ff3,
+             2px -4px 6px #fd3,
+             -2px -6px 11px #f80,
+             2px -8px 18px #f20;
+    font-size: 60px;
+}
+
+.Members{
+    overflow: hidden;
+}
