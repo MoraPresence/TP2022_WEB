@@ -15,8 +15,8 @@ def index(request):
 
 
 def question(request, question_id: int):
-    question_item = get_object_or_404(Question, pk=question_id)
-    context = paginate(Answer.objects.filter(question_id=question_id), request, 4)
+    question_item = get_object_or_404(Question.objects.questions(), pk=question_id)
+    context = paginate(Answer.objects.hot_answers().filter(question_id=question_id), request, 4)
     return render(request, 'question.html',
                   {'question': question_item, 'answers': context, 'best_members': get_best_members(),
                    'popular_tags': get_popular_tags()})

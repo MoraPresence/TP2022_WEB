@@ -32,52 +32,29 @@ class Profile(models.Model):
             return settings.STATIC_URL + 'img/cat01.jpg'
 
 
-class LikeManager(models.Manager):
-    use_for_related_fields = True
-
-    def like_sort(self):
-        return self.get_queryset().order_by('-count')
-
-
-class Like(models.Model):
-    count = models.PositiveIntegerField(default=0)
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE
-    )
-    object_id = models.IntegerField()
-
-    objects = LikeManager()
-
-    class Meta:
-        ordering = ['-count']
-
-    def __str__(self):
-        return f'{self.count}'
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=10)
-
-    count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.name}'
 
 
 class QuestionManager(models.Manager):
+    def questions(self):
+        return self.get_queryset().order_by('-creating_date').annotate(likes=Count('likequestion', distinct=True))
+
     def hot_questions(self):
-        return self.get_queryset().order_by('-likes').annotate(answers_count=Count('answer'))
+        return self.get_queryset().annotate(answers_count=Count('answer', distinct=True),
+                                            likes=Count('likequestion', distinct=True)).order_by('-likes')
 
     def new_questions(self):
-        return self.get_queryset().order_by('-creating_date').annotate(answers_count=Count('answer'))
+        return self.get_queryset().order_by('-creating_date').annotate(answers_count=Count('answer', distinct=True),
+                                                                       likes=Count('likequestion', distinct=True))
 
     def tag_questions(self, tag):
-        return self.get_queryset().filter(tag__name__contains=tag).annotate(answers_count=Count('answer'))
+        return self.get_queryset().filter(tag__name__contains=tag).annotate(
+            answers_count=Count('answer', distinct=True),
+            likes=Count('likequestion', distinct=True))
 
     def get_count_questions_by_tag(self, tag):
         return self.get_queryset().filter(tag__name__contains=tag).count()
@@ -93,8 +70,6 @@ class Question(models.Model):
         on_delete=models.CASCADE
     )
 
-    likes = GenericRelation(Like, related_query_name='likes')
-
     creating_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     objects = QuestionManager()
@@ -104,6 +79,17 @@ class Question(models.Model):
 
     def __str__(self):
         return f'Question Author {self.author.user.username}'
+
+
+class LikeQuestion(models.Model):
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
 
 
 def get_best_members():
@@ -130,6 +116,9 @@ class AnswerManager(models.Manager):
     def get_count_answers_by_profile(self, profile):
         return self.get_queryset().filter(author__user__username__contains=profile).count()
 
+    def hot_answers(self):
+        return self.get_queryset().annotate(likes=Count('likeanswer', distinct=True)).order_by('-likes')
+
 
 class Answer(models.Model):
     text = models.CharField(max_length=300)
@@ -143,7 +132,16 @@ class Answer(models.Model):
 
     objects = AnswerManager()
 
-    likes = GenericRelation(Like, related_query_name='likes')
-
     def __str__(self):
         return f'Answer Author {self.author.user.username}'
+
+
+class LikeAnswer(models.Model):
+    answer = models.ForeignKey(
+        Answer,
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
