@@ -1,8 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import auth
+from django.contrib.auth import logout
+from django.forms import model_to_dict
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
 from CatOverflow.paginator import paginate
 
 # @require_GET
+from .forms import LoginForm, RegisterForm, SettingsForm
 from .models import Question, Answer, get_best_members, get_popular_tags
 
 
@@ -27,15 +34,47 @@ def ask(request):
 
 
 def login(request):
-    return render(request, 'login.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+    if request.method == "GET":
+        user_form = LoginForm()
+
+    if request.method == 'POST':
+        user_form = LoginForm(request.POST)
+        if user_form.is_valid():
+            user = auth.authenticate(request=request, **user_form.cleaned_data)
+            if user:
+                return redirect(reverse('index'))
+            else:
+                user_form.add_error(field=None, error="Wrong username or password")
+    return render(request, 'login.html',
+                  {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def register(request):
-    return render(request, 'register.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+    if request.method == "GET":
+        user_form = RegisterForm()
+
+    if request.method == 'POST':
+        user_form = RegisterForm(request.POST, request.FILES)
+        if user_form.is_valid():
+            user = user_form.save()
+            if user:
+                return redirect(reverse('index'))
+            else:
+                user_form.add_error(field=None, error="User saving error")
+    return render(request, 'register.html',
+                  {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def settings(request):
-    return render(request, 'settings.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+    if request.method == "GET":
+        initial_data = model_to_dict(request.user)
+        user_form = SettingsForm(initial=initial_data)
+
+    if request.method == 'POST':
+        initial_data = {}
+        user_form = {}
+    return render(request, 'settings.html', {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def tag(request, tag_id):
@@ -52,3 +91,8 @@ def hot(request):
     return render(request, 'index.html',
                   {'questions': context, 'best_members': get_best_members(),
                    'popular_tags': get_popular_tags()})
+
+
+def logout_view(request):
+    auth.logout(request)
+    return redirect(reverse('index'))
