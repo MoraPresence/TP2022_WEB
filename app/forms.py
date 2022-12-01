@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 
-from app.models import Profile
+from app.models import Profile, Question, Answer
 
 
 class LoginForm(forms.Form):
@@ -21,6 +21,7 @@ class LoginForm(forms.Form):
         username = self.cleaned_data['username']
         if ' ' in username:
             raise forms.ValidationError('Username includes spaces')
+        return username
 
     def clean_password(self):
         password = self.cleaned_data['password']
@@ -82,7 +83,6 @@ class RegisterForm(forms.ModelForm):
         self.cleaned_data.pop('avatar')
         user = User.objects.create_user(**self.cleaned_data)
         if avatar:
-            print(avatar)
             return Profile.objects.create(user=user, image=avatar)
         else:
             return Profile.objects.create(user=user)
@@ -93,10 +93,47 @@ class RegisterForm(forms.ModelForm):
 
 
 class SettingsForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-    password_repeat = forms.CharField(widget=forms.PasswordInput, label="Repeat password")
+    password = forms.CharField(required=False, widget=forms.PasswordInput, label="Password")
+    password_repeat = forms.CharField(required=False, widget=forms.PasswordInput, label="Repeat password")
     avatar = forms.ImageField(label="Upload avatar", required=False, validators=[size])
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'password')
+        fields = ('username', 'first_name', 'last_name', 'avatar')
+
+    def save(self, commit=True):
+        user = super().save()
+
+        profile = user.profile
+        profile.image = self.cleaned_data['avatar']
+        profile.save()
+
+        return user
+
+
+class QuestionForm(forms.ModelForm):
+    tags = forms.CharField(label="tags")
+
+    class Meta:
+        model = Question
+        fields = ('title', 'text', 'tags')
+
+        widgets = {
+            'title': forms.TextInput(),
+            'text': forms.Textarea(attrs={'placeholder': 'Enter your question', 'rows': 10}),
+        }
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ('question', 'author', 'text')
+
+        widgets = {
+            'question': forms.HiddenInput,
+            'author': forms.HiddenInput,
+            'text': forms.Textarea(attrs={'placeholder': 'Enter your question', 'rows': 6}),
+        }
+
+    def save(self, commit=True):
+        return Answer.objects.create(**self.cleaned_data)

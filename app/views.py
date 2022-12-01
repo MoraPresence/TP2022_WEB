@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from CatOverflow.paginator import paginate
 
 # @require_GET
-from .forms import LoginForm, RegisterForm, SettingsForm
+from .forms import LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
 from .models import Question, Answer, get_best_members, get_popular_tags
 
 
@@ -22,17 +23,51 @@ def index(request):
 
 
 def question(request, question_id: int):
+    initial_data = {'question': question_id, 'author': request.user.profile}
+    answer_form = {}
+
+    if request.method == "GET":
+        answer_form = AnswerForm(initial=initial_data)
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            answer_form = AnswerForm(initial=initial_data, data=request.POST)
+            if answer_form.is_valid():
+                answer = answer_form.save()
+                if answer:
+                    return redirect(reverse('index'))
+                else:
+                    answer_form.add_error(field=None, error="Answer saving error")
+        else:
+            answer_form.add_error(field=None, error="You not authenticated")
+
     question_item = get_object_or_404(Question.objects.questions(), pk=question_id)
     context = paginate(Answer.objects.hot_answers().filter(question_id=question_id), request, 4)
+
     return render(request, 'question.html',
-                  {'question': question_item, 'answers': context, 'best_members': get_best_members(),
+                  {'form': answer_form, 'question': question_item, 'answers': context,
+                   'best_members': get_best_members(),
                    'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def ask(request):
-    return render(request, 'ask.html', {'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+    if request.method == "GET":
+        question_form = QuestionForm()
+
+    if request.method == 'POST':
+        question_form = QuestionForm(request.POST)
+        if question_form.is_valid():
+            user = question_form.save()
+            if user:
+                return redirect(reverse('login'))
+            else:
+                question_form.add_error(field=None, error="User saving error")
+    return render(request, 'ask.html',
+                  {'form': question_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def login(request):
     if request.method == "GET":
         user_form = LoginForm()
@@ -42,6 +77,7 @@ def login(request):
         if user_form.is_valid():
             user = auth.authenticate(request=request, **user_form.cleaned_data)
             if user:
+                auth.login(request, user)
                 return redirect(reverse('index'))
             else:
                 user_form.add_error(field=None, error="Wrong username or password")
@@ -49,6 +85,7 @@ def login(request):
                   {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def register(request):
     if request.method == "GET":
         user_form = RegisterForm()
@@ -58,13 +95,14 @@ def register(request):
         if user_form.is_valid():
             user = user_form.save()
             if user:
-                return redirect(reverse('index'))
+                return redirect(reverse('login'))
             else:
                 user_form.add_error(field=None, error="User saving error")
     return render(request, 'register.html',
                   {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@login_required(login_url="login", redirect_field_name="continue")
 @require_http_methods(['GET', 'POST'])
 def settings(request):
     if request.method == "GET":
@@ -72,9 +110,15 @@ def settings(request):
         user_form = SettingsForm(initial=initial_data)
 
     if request.method == 'POST':
-        initial_data = {}
-        user_form = {}
-    return render(request, 'settings.html', {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
+        user_form = SettingsForm(request.POST, request.FILES, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect(reverse('index'))
+        else:
+            user_form.add_error(field=None, error="Invalid POST data")
+
+    return render(request, 'settings.html',
+                  {'form': user_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
 def tag(request, tag_id):
@@ -93,6 +137,7 @@ def hot(request):
                    'popular_tags': get_popular_tags()})
 
 
+@login_required
 def logout_view(request):
     auth.logout(request)
     return redirect(reverse('index'))

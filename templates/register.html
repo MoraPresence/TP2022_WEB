@@ -12,10 +12,9 @@
             {% if user.is_authenticated %}
             <div class="alert alert-secondary">You are already logged in</div>
             {% else %}
-            <form action="/register/" method="post">
-
-                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field
-                col-sm-7" %}
+            <form action="/register/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field col-sm-7" %}
 
                 <div class="ask-button d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-light me-2">Register</button>

@@ -1,29 +1,20 @@
 {% extends 'inc/base.html' %}
-
+{% load bootstrap5 %}
 {% load static %}
 
 {% block content %}
 <!-- Begin page content -->
-
-<div class="mb-3">
-    <label for="TitleData" class="form-label">Title</label>
-    <input type="text" class="form-control" minlength="10" maxlength="60" id="TitleData"
-           placeholder="How to drink milk?" required>
-</div>
-<div class="mb-3">
-    <label for="TextData" class="form-label">Text</label>
-    <textarea type="text" class="form-control" id="TextData" rows="12" minlength="10" maxlength="800"
-              required></textarea>
-</div>
-<div class="mb-3 ">
-    <label for="TagsData" class="form-label">Tags</label>
-    <input type="text" class="form-control" maxlength="60" id="TagsData">
-</div>
-
-<div class="mb-3">
-    <div class="ask-button">
-        <button type="button" class="btn btn-outline-light me-2">Ask</button>
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="card-body p-5">
+            <form action="/ask/" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field col-sm-12" %}
+                <div class="ask-button d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-light me-2">Ask!</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 {% endblock %}
