@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         total = kwargs['total']
         author_list = Profile.objects.all()
-        tag_list = Tag.objects.values_list('id', flat=True)
+        tag_list = Tag.objects.values_list('name', flat=True)
 
         for i in range(total):
             question = Question.objects.create(

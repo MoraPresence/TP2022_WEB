@@ -35,7 +35,7 @@ def question(request, question_id: int):
             if answer_form.is_valid():
                 answer = answer_form.save()
                 if answer:
-                    return redirect(reverse('index'))
+                    return redirect('/question/' + str(question_id))
                 else:
                     answer_form.add_error(field=None, error="Answer saving error")
         else:
@@ -50,19 +50,20 @@ def question(request, question_id: int):
                    'popular_tags': get_popular_tags()})
 
 
+@login_required(login_url="login", redirect_field_name="continue")
 @require_http_methods(['GET', 'POST'])
 def ask(request):
     if request.method == "GET":
-        question_form = QuestionForm()
+        question_form = QuestionForm(request.user.profile)
 
     if request.method == 'POST':
-        question_form = QuestionForm(request.POST)
+        question_form = QuestionForm(request.user.profile, data=request.POST)
         if question_form.is_valid():
-            user = question_form.save()
-            if user:
-                return redirect(reverse('login'))
+            question_instance = question_form.save()
+            if question_instance:
+                return redirect('/question/' + str(question_instance.id))
             else:
-                question_form.add_error(field=None, error="User saving error")
+                question_form.add_error(field=None, error="Enter tags separated by commas")
     return render(request, 'ask.html',
                   {'form': question_form, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
