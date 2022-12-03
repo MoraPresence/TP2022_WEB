@@ -1,11 +1,4 @@
 from django import forms
-
-# class UserForm(forms.ModelForm):
-#     username = forms.CharField(widget=forms.Textarea)
-#
-#     class Meta:
-#         model = CustomUser
-#         fields = ['username', 'password']
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
