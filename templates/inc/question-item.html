@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="col-lg-2">
-            {% include 'inc/like-button.html' with likes=question.likes %}
+            {% include 'inc/like-button.html' with likes=question.likes data=question type="question" %}
         </div>
         <div class="col-lg-3">
             <a href="{% url 'question' question_id=question.id %}">answers({{ question.answers_count }})</a>

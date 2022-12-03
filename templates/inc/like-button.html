@@ -1,7 +1,5 @@
 {% load static %}
-<button class="glow-on-hover likeBtn" type="submit">
-    {% block like-content %}
-    {% endblock %}
+<button class="glow-on-hover likeBtn" data-id="{{ data.id }}" data-type="{{ type }}" type="submit">
     <img src="{% static 'img/like.png' %}" alt="" style="width: 25px; height: 25px;">
     (<span class="totalLikes">{{ likes }}</span>)
 </button>

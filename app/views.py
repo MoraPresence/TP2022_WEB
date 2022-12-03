@@ -1,17 +1,18 @@
 from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.forms import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 
 from CatOverflow.paginator import paginate
 
 # @require_GET
 from .forms import LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
-from .models import Question, Answer, get_best_members, get_popular_tags
+from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion
 
 
 def index(request):
@@ -142,3 +143,27 @@ def hot(request):
 def logout_view(request):
     auth.logout(request)
     return redirect(reverse('index'))
+
+
+@require_POST
+@login_required
+def like(request):
+    print(request.POST)
+    data_id = request.POST['data_id']
+
+    question_instance = Question.objects.get(id=data_id)
+
+    like_instance = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).filter(
+        user=request.user.profile)
+
+    if like_instance:
+        like_instance.delete()
+    else:
+        like_instance = LikeQuestion.objects.create(question=question_instance, user=request.user.profile)
+        like_instance.save()
+
+    likes_count = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).count()
+    return JsonResponse({
+        'status': 'ok',
+        'likes_count': likes_count
+    })
