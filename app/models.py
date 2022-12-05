@@ -17,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank=True, default='default.png', upload_to='avatar/%Y/%m/%d/')
+    image = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='avatar/%Y/%m/%d/')
 
     objects = ProfileManager()
 
@@ -28,8 +28,7 @@ class Profile(models.Model):
     def get_avatar(self):
         if self.image:
             return self.image.url
-        else:
-            return settings.STATIC_URL + 'img/cat01.jpg'
+
 
 
 class Tag(models.Model):

@@ -19,10 +19,18 @@
             {% include 'inc/like-button.html' with likes=answer.likes data=answer type="answer" %}
         </div>
         <div class="col-lg-3">
+
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="correctAnswer"
-                       value="something" checked>
+                {% if user.is_authenticated and user.profile == question.author %}
+                <input type="checkbox" class="form-check-input" data-id="{{ answer.id }}" name="correctAnswer"
+                       value="something" {% if answer.is_correct %} checked {% endif %}>
+                {% if not answer.is_correct %}
+                <label class="form-check-label">Mark correct answer!</label>
+                {% endif %}
+                {% endif %}
+                {% if answer.is_correct %}
                 <label class="form-check-label">Correct!</label>
+                {% endif %}
             </div>
         </div>
         <div class="col-lg-7">

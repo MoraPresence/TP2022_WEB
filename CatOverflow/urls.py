@@ -32,6 +32,7 @@ urlpatterns = [
     path('tag/<tag_id>/', views.tag, name='tag'),
     path('logout_view/', views.logout_view, name="logout_view"),
     path('like/', views.like, name="like"),
+    path('correct/', views.correct, name="correct"),
 ]
 
 if settings.DEBUG:

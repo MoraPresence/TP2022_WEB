@@ -145,6 +145,8 @@ class QuestionForm(forms.ModelForm):
         for tag_instance in lst:
             if ' ' in tag_instance:
                 raise forms.ValidationError('The tag contains a space')
+            if len(tag_instance) > 10:
+                raise forms.ValidationError('Tag len so big')
         return lst
 
     def __init__(self, author, *args, **kwargs):
@@ -162,9 +164,11 @@ class QuestionForm(forms.ModelForm):
         if commit:
             question.save()
             for tag_instance in tags_list:
-                print(tag_instance)
-                tag = Tag.objects.get(pk=tag_instance)
-                if not tag:
+
+                if Tag.objects.filter(pk=tag_instance).exists():
+                    tag = Tag.objects.get(pk=tag_instance)
+
+                if not Tag.objects.filter(pk=tag_instance).exists():
                     tag = Tag.objects.create(name=tag_instance)
                 question.tag.add(tag.name)
             question.save()

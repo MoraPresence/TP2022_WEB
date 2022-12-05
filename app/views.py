@@ -23,8 +23,12 @@ def index(request):
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def question(request, question_id: int):
-    initial_data = {'question': question_id, 'author': request.user.profile}
+    if request.user.is_authenticated:
+        initial_data = {'question': question_id, 'author': request.user.profile}
+    else:
+        initial_data = {'question': question_id, 'author': None}
     answer_form = {}
 
     if request.method == "GET":
@@ -40,7 +44,7 @@ def question(request, question_id: int):
                 else:
                     answer_form.add_error(field=None, error="Answer saving error")
         else:
-            answer_form.add_error(field=None, error="You not authenticated")
+            return redirect(reverse('login'))
 
     question_item = get_object_or_404(Question.objects.questions(), pk=question_id)
     context = paginate(Answer.objects.hot_answers().filter(question_id=question_id), request, 4)
@@ -146,9 +150,9 @@ def logout_view(request):
 
 
 @require_POST
-@login_required
+@login_required(login_url="login", redirect_field_name="continue")
 def like(request):
-    print(request.POST)
+
     data_id = request.POST['data_id']
 
     question_instance = Question.objects.get(id=data_id)
@@ -166,4 +170,23 @@ def like(request):
     return JsonResponse({
         'status': 'ok',
         'likes_count': likes_count
+    })
+
+
+@require_POST
+@login_required
+def correct(request):
+    answer_id = request.POST['data_id']
+
+    answer_instance = Answer.objects.get(id=answer_id)
+
+    if answer_instance.is_correct:
+        answer_instance.is_correct = False
+    else:
+        answer_instance.is_correct = True
+
+    answer_instance.save()
+
+    return JsonResponse({
+        'status': 'ok'
     })

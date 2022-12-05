@@ -35,7 +35,9 @@
         {% include 'inc/answer-item.html' %}
     {% endfor %}
 
+    {% if answers.objects_list.paginator.num_pages > 1 %}
     {% include 'inc/paginator.html' with objects_list=answers.objects_list page_range=answers.page_range %}
+    {% endif %}
 </div>
 
 
