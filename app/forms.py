@@ -94,11 +94,32 @@ class SettingsForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'avatar')
 
+    def clean(self):
+        super().clean()
+        password = self.cleaned_data['password']
+        password_repeat = self.cleaned_data['password_repeat']
+        if ' ' in password:
+            errors = {'password': ValidationError('Password includes space')}
+            raise forms.ValidationError(errors)
+
+        if password and password_repeat and password != password_repeat:
+            errors = {'password_repeat': ValidationError('The entered passwords do not match'),
+                      'password': ValidationError('')}
+            raise ValidationError(errors)
+
     def save(self, commit=True):
         user = super().save()
 
         profile = user.profile
-        profile.image = self.cleaned_data['avatar']
+        avatar = self.cleaned_data['avatar']
+        if avatar:
+            profile.image = avatar
+
+        new_password = self.cleaned_data['password']
+        if new_password:
+            profile.user.set_password(new_password)
+            profile.user.save()
+
         profile.save()
 
         return user
