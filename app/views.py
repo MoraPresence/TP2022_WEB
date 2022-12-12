@@ -12,7 +12,7 @@ from CatOverflow.paginator import paginate
 
 # @require_GET
 from .forms import LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
-from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion
+from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion, LikeAnswer
 
 
 def index(request):
@@ -152,21 +152,34 @@ def logout_view(request):
 @require_POST
 @login_required(login_url="login", redirect_field_name="continue")
 def like(request):
-
     data_id = request.POST['data_id']
+    data_type = request.POST['data_type']
+    if data_type == 'question':
+        question_instance = Question.objects.get(id=data_id)
 
-    question_instance = Question.objects.get(id=data_id)
+        like_instance = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).filter(
+            user=request.user.profile)
 
-    like_instance = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).filter(
-        user=request.user.profile)
+        if like_instance:
+            like_instance.delete()
+        else:
+            like_instance = LikeQuestion.objects.create(question=question_instance, user=request.user.profile)
+            like_instance.save()
 
-    if like_instance:
-        like_instance.delete()
+        likes_count = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).count()
     else:
-        like_instance = LikeQuestion.objects.create(question=question_instance, user=request.user.profile)
-        like_instance.save()
+        answer_instance = Answer.objects.get(id=data_id)
+        like_instance = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).filter(
+            user=request.user.profile)
 
-    likes_count = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).count()
+        if like_instance:
+            like_instance.delete()
+        else:
+            like_instance = LikeAnswer.objects.create(answer=answer_instance, user=request.user.profile)
+            like_instance.save()
+
+        likes_count = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).count()
+
     return JsonResponse({
         'status': 'ok',
         'likes_count': likes_count
