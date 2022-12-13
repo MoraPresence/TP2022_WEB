@@ -39,15 +39,16 @@ def question(request, question_id: int):
             answer_form = AnswerForm(initial=initial_data, data=request.POST)
             if answer_form.is_valid():
                 answer = answer_form.save()
+                page_num = int((Answer.objects.new_answers().filter(question_id=question_id).count()) / 4) + 1
                 if answer:
-                    return redirect('/question/' + str(question_id))
+                    return redirect('/question/' + str(question_id) + '?page=' + str(page_num))
                 else:
                     answer_form.add_error(field=None, error="Answer saving error")
         else:
             return redirect(reverse('login'))
 
     question_item = get_object_or_404(Question.objects.questions(), pk=question_id)
-    context = paginate(Answer.objects.hot_answers().filter(question_id=question_id), request, 4)
+    context = paginate(Answer.objects.new_answers().filter(question_id=question_id), request, 4)
 
     return render(request, 'question.html',
                   {'form': answer_form, 'question': question_item, 'answers': context,
@@ -77,14 +78,19 @@ def ask(request):
 def login(request):
     if request.method == "GET":
         user_form = LoginForm()
-
+        redirect_name = request.GET.get('continue', False)
+        if redirect_name:
+            auth.REDIRECT_FIELD_NAME = redirect_name
     if request.method == 'POST':
         user_form = LoginForm(request.POST)
         if user_form.is_valid():
             user = auth.authenticate(request=request, **user_form.cleaned_data)
             if user:
                 auth.login(request, user)
-                return redirect(reverse('index'))
+                if auth.REDIRECT_FIELD_NAME != 'next':
+                    return redirect(auth.REDIRECT_FIELD_NAME)
+                else:
+                    return redirect(reverse('index'))
             else:
                 user_form.add_error(field=None, error="Wrong username or password")
     return render(request, 'login.html',

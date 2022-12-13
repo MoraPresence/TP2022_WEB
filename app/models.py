@@ -118,6 +118,9 @@ class AnswerManager(models.Manager):
     def hot_answers(self):
         return self.get_queryset().annotate(likes=Count('likeanswer', distinct=True)).order_by('-likes')
 
+    def new_answers(self):
+        return self.get_queryset().annotate(likes=Count('likeanswer', distinct=True)).order_by('-creating_date').reverse()
+
 
 class Answer(models.Model):
     text = models.CharField(max_length=300)
@@ -128,6 +131,8 @@ class Answer(models.Model):
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE)
+
+    creating_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     objects = AnswerManager()
 

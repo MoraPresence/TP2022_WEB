@@ -204,7 +204,7 @@ class AnswerForm(forms.ModelForm):
         widgets = {
             'question': forms.HiddenInput,
             'author': forms.HiddenInput,
-            'text': forms.Textarea(attrs={'placeholder': 'Enter your question', 'rows': 6}),
+            'text': forms.Textarea(attrs={'placeholder': 'Enter your answer', 'rows': 6}),
         }
 
     def save(self, commit=True):
