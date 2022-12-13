@@ -18,8 +18,8 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-ADD . /app
+ADD .. /app
 
-EXPOSE 8000
+EXPOSE 8010
 
-CMD python3 manage.py migrate; python3 manage.py fill_db 5; gunicorn -c g.conf.py CatOverflow.wsgi
+CMD python3 manage.py migrate; python3 manage.py fill_db 5; python3 manage.py runserver 0.0.0.0:8010
