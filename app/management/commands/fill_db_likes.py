@@ -25,10 +25,5 @@ class Command(BaseCommand):
             question = random.choice(questions_list)
             answer = random.choice(answers_list)
 
-            like_question = Like.objects.create(content_type=ContentType.objects.get_for_model(question),
-                                                object_id=question.id, user=user,
-                                                count=random.randint(0, 100))
-            like_answer = Like.objects.create(content_type=ContentType.objects.get_for_model(answer),
-                                              object_id=answer.id,
-                                              user=user,
-                                              count=random.randint(0, 100))
+            like_question = LikeQuestion.objects.create(question=question, user=user)
+            like_answer = LikeAnswer.objects.create(answer=answer, user=user)

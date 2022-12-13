@@ -1,5 +1,5 @@
 {% extends 'inc/base.html' %}
-
+{% load bootstrap5 %}
 {% load static %}
 
 {% block content %}
@@ -9,52 +9,21 @@
     <div class="row d-flex justify-content-center align-items-center">
         <div class="card-body p-5">
             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-            <form>
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Login is in use</h2>
-                    <input type="text" id="formLoginRegister"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="formLoginRegister">Login</label>
-                </div>
+            {% if user.is_authenticated %}
+            <div class="alert alert-secondary">You are already logged in</div>
+            {% else %}
+            <form action="/register/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field col-sm-7" %}
 
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Email is in use</h2>
-                    <input type="email" id="formEmailRegister"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="formEmailRegister">Your Email</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Nickname is in use</h2>
-                    <input type="email" id="formNicknameRegister"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="formNicknameRegister">Your Nickname</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4cg"
-                           class="form-control form-control-lg" minlength="4" maxlength="32" required/>
-                    <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Passwords do not match</h2>
-                    <input type="password" id="form3Example4cdg"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="form3Example4cdg">Repeat your
-                        password</label>
-                </div>
-                <div class="mb-4">
-                    <input class="form-control" type="file" id="formAvatarUpload">
-                    <label for="formAvatarUpload" class="form-label">Upload avatar</label>
-                </div>
                 <div class="ask-button d-flex justify-content-center">
-                    <button type="button" class="btn btn-outline-light me-2">Register</button>
+                    <button type="submit" class="btn btn-outline-light me-2">Register</button>
                 </div>
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
                         href="{% url 'login' %}"
                         class="fw-bold text-body"><u>Login here</u></a></p>
             </form>
+            {% endif %}
         </div>
     </div>
 </div>

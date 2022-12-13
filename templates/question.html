@@ -1,5 +1,5 @@
 {% extends 'inc/base.html' %}
-
+{% load bootstrap5 %}
 {% load static %}
 
 {% block content %}
@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-lg-2">
-            {% include 'inc/like-button.html' %}
+            {% include 'inc/like-button.html' with likes=question.likes %}
         </div>
 
         <div class="col-lg-10">
@@ -39,15 +39,17 @@
 </div>
 
 
-<div class="mb-3">
-    <label for="TextData" class="form-label">Text</label>
-    <textarea type="text" class="form-control" id="TextData" rows="4" minlength="10" maxlength="200"
-              required></textarea>
-</div>
-
-<div class="mb-3">
-    <div class="ask-button">
-        <button type="button" class="btn btn-outline-light me-2">Answer</button>
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="card-body p-5">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field col-sm-12" %}
+                <div class="ask-button d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-light me-2">Answer</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

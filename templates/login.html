@@ -1,5 +1,5 @@
 {% extends 'inc/base.html' %}
-
+{% load bootstrap5 %}
 {% load static %}
 
 {% block content %}
@@ -8,31 +8,26 @@
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center">
         <div class="card-body p-5">
+
             <h2 class="text-uppercase text-center mb-5">Log in account</h2>
-            <form>
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Error login</h2>
-                    <input type="text" id="formLoginRegister"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="formLoginRegister">Login</label>
-                </div>
-
-
-                <div class="form-outline mb-4">
-                    <h2 class="text-error">Error password</h2>
-                    <input type="password" id="form3Example4cg"
-                           class="form-control form-control-lg"/>
-                    <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
+            {% if user.is_authenticated %}
+                <div class="alert alert-secondary">You are already logged in</div>
+            {% else %}
+            <form action="/login/" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" label_class="form-label col-sm-3" field_class="form-field col-sm-7" %}
 
                 <div class="ask-button d-flex justify-content-center">
-                    <button type="button" class="btn btn-outline-light me-2">Log in</button>
+                    <button type="submit" class="btn btn-outline-light me-2">Log in</button>
                 </div>
+
                 <p class="text-center text-muted mt-5 mb-0">
                     You do not have an account? <a href="{% url 'register' %}" class="fw-bold text-body"><u>Register
                     here</u></a>
                 </p>
+
             </form>
+            {% endif %}
         </div>
     </div>
 </div>

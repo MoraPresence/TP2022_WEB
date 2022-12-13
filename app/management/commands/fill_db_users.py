@@ -11,6 +11,7 @@ import requests
 
 fake = Faker()
 
+# TODO: BALCO
 
 class Command(BaseCommand):
     help = u'Заполнение базы данных случайными пользователями'
@@ -28,16 +29,16 @@ class Command(BaseCommand):
                 last_name=fake.last_name(),
                 password='1111')
 
-            # image = random.choice(os.listdir("uploads/"))
-            # profile = Profile.objects.create(user=user, image=image)
-
-            url = fake.image_url()
-            s = requests.get(url)
-
-            image_name = fake.word()
-
-            with open(f"uploads/{image_name}.png", "wb") as f:
-                f.write(s.content)
-
-            image = f"uploads/{image_name}.png"
+            image = random.choice(os.listdir("uploads/"))
             profile = Profile.objects.create(user=user, image=image)
+
+            # url = fake.image_url()
+            # s = requests.get(url)
+            #
+            # image_name = fake.word()
+            #
+            # with open(f"uploads/{image_name}.png", "wb") as f:
+            #     f.write(s.content)
+            #
+            # image = f"uploads/{image_name}.png"
+            # profile = Profile.objects.create(user=user, image=image)
