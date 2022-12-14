@@ -11,6 +11,7 @@ import requests
 
 fake = Faker()
 
+
 # TODO: BALCO
 
 class Command(BaseCommand):
@@ -30,7 +31,7 @@ class Command(BaseCommand):
                 password='1111')
 
             image = random.choice(os.listdir("uploads/"))
-            profile = Profile.objects.create(user=user, image=image)
+            profile = Profile.objects.create(user=user)
 
             # url = fake.image_url()
             # s = requests.get(url)

@@ -94,11 +94,32 @@ class SettingsForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'avatar')
 
+    def clean(self):
+        super().clean()
+        password = self.cleaned_data['password']
+        password_repeat = self.cleaned_data['password_repeat']
+        if ' ' in password:
+            errors = {'password': ValidationError('Password includes space')}
+            raise forms.ValidationError(errors)
+
+        if password and password_repeat and password != password_repeat:
+            errors = {'password_repeat': ValidationError('The entered passwords do not match'),
+                      'password': ValidationError('')}
+            raise ValidationError(errors)
+
     def save(self, commit=True):
         user = super().save()
 
         profile = user.profile
-        profile.image = self.cleaned_data['avatar']
+        avatar = self.cleaned_data['avatar']
+        if avatar:
+            profile.image = avatar
+
+        new_password = self.cleaned_data['password']
+        if new_password:
+            profile.user.set_password(new_password)
+            profile.user.save()
+
         profile.save()
 
         return user
@@ -145,6 +166,8 @@ class QuestionForm(forms.ModelForm):
         for tag_instance in lst:
             if ' ' in tag_instance:
                 raise forms.ValidationError('The tag contains a space')
+            if len(tag_instance) > 10:
+                raise forms.ValidationError('Tag len so big')
         return lst
 
     def __init__(self, author, *args, **kwargs):
@@ -162,9 +185,11 @@ class QuestionForm(forms.ModelForm):
         if commit:
             question.save()
             for tag_instance in tags_list:
-                print(tag_instance)
-                tag = Tag.objects.get(pk=tag_instance)
-                if not tag:
+
+                if Tag.objects.filter(pk=tag_instance).exists():
+                    tag = Tag.objects.get(pk=tag_instance)
+
+                if not Tag.objects.filter(pk=tag_instance).exists():
                     tag = Tag.objects.create(name=tag_instance)
                 question.tag.add(tag.name)
             question.save()
@@ -179,7 +204,7 @@ class AnswerForm(forms.ModelForm):
         widgets = {
             'question': forms.HiddenInput,
             'author': forms.HiddenInput,
-            'text': forms.Textarea(attrs={'placeholder': 'Enter your question', 'rows': 6}),
+            'text': forms.Textarea(attrs={'placeholder': 'Enter your answer', 'rows': 6}),
         }
 
     def save(self, commit=True):

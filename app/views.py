@@ -1,17 +1,18 @@
 from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.forms import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 
 from CatOverflow.paginator import paginate
 
 # @require_GET
 from .forms import LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
-from .models import Question, Answer, get_best_members, get_popular_tags
+from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion, LikeAnswer
 
 
 def index(request):
@@ -22,8 +23,12 @@ def index(request):
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
 
 
+@require_http_methods(['GET', 'POST'])
 def question(request, question_id: int):
-    initial_data = {'question': question_id, 'author': request.user.profile}
+    if request.user.is_authenticated:
+        initial_data = {'question': question_id, 'author': request.user.profile}
+    else:
+        initial_data = {'question': question_id, 'author': None}
     answer_form = {}
 
     if request.method == "GET":
@@ -34,15 +39,16 @@ def question(request, question_id: int):
             answer_form = AnswerForm(initial=initial_data, data=request.POST)
             if answer_form.is_valid():
                 answer = answer_form.save()
+                page_num = int((Answer.objects.new_answers().filter(question_id=question_id).count()) / 4) + 1
                 if answer:
-                    return redirect('/question/' + str(question_id))
+                    return redirect('/question/' + str(question_id) + '?page=' + str(page_num))
                 else:
                     answer_form.add_error(field=None, error="Answer saving error")
         else:
-            answer_form.add_error(field=None, error="You not authenticated")
+            return redirect(reverse('login'))
 
     question_item = get_object_or_404(Question.objects.questions(), pk=question_id)
-    context = paginate(Answer.objects.hot_answers().filter(question_id=question_id), request, 4)
+    context = paginate(Answer.objects.new_answers().filter(question_id=question_id), request, 4)
 
     return render(request, 'question.html',
                   {'form': answer_form, 'question': question_item, 'answers': context,
@@ -72,14 +78,19 @@ def ask(request):
 def login(request):
     if request.method == "GET":
         user_form = LoginForm()
-
+        redirect_name = request.GET.get('continue', False)
+        if redirect_name:
+            auth.REDIRECT_FIELD_NAME = redirect_name
     if request.method == 'POST':
         user_form = LoginForm(request.POST)
         if user_form.is_valid():
             user = auth.authenticate(request=request, **user_form.cleaned_data)
             if user:
                 auth.login(request, user)
-                return redirect(reverse('index'))
+                if auth.REDIRECT_FIELD_NAME != 'next':
+                    return redirect(auth.REDIRECT_FIELD_NAME)
+                else:
+                    return redirect(reverse('index'))
             else:
                 user_form.add_error(field=None, error="Wrong username or password")
     return render(request, 'login.html',
@@ -142,3 +153,59 @@ def hot(request):
 def logout_view(request):
     auth.logout(request)
     return redirect(reverse('index'))
+
+
+@require_POST
+@login_required(login_url="login", redirect_field_name="continue")
+def like(request):
+    data_id = request.POST['data_id']
+    data_type = request.POST['data_type']
+    if data_type == 'question':
+        question_instance = Question.objects.get(id=data_id)
+
+        like_instance = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).filter(
+            user=request.user.profile)
+
+        if like_instance:
+            like_instance.delete()
+        else:
+            like_instance = LikeQuestion.objects.create(question=question_instance, user=request.user.profile)
+            like_instance.save()
+
+        likes_count = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).count()
+    else:
+        answer_instance = Answer.objects.get(id=data_id)
+        like_instance = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).filter(
+            user=request.user.profile)
+
+        if like_instance:
+            like_instance.delete()
+        else:
+            like_instance = LikeAnswer.objects.create(answer=answer_instance, user=request.user.profile)
+            like_instance.save()
+
+        likes_count = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).count()
+
+    return JsonResponse({
+        'status': 'ok',
+        'likes_count': likes_count
+    })
+
+
+@require_POST
+@login_required
+def correct(request):
+    answer_id = request.POST['data_id']
+
+    answer_instance = Answer.objects.get(id=answer_id)
+
+    if answer_instance.is_correct:
+        answer_instance.is_correct = False
+    else:
+        answer_instance.is_correct = True
+
+    answer_instance.save()
+
+    return JsonResponse({
+        'status': 'ok'
+    })

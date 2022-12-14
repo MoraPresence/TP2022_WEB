@@ -1,7 +1,10 @@
 version: '3.8'
 services:
   web:
-    build: .
-    command: python manage.py runserver localhost:8000
+    container_name: server_web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python3 manage.py runserver localhost:8000
     ports:
       - 8000:8000
