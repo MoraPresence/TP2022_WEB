@@ -111,6 +111,17 @@ services:
       my_network:
         ipv4_address: 172.28.0.8
 
+  test_wsgi:
+    container_name: test_wsgi
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile_wsgi
+    ports:
+      - 8081:8081
+    networks:
+      my_network:
+        ipv4_address: 172.28.0.11
+
 networks:
   my_network:
     ipam:
