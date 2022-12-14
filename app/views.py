@@ -173,7 +173,11 @@ def like(request):
             like_instance.save()
 
         likes_count = LikeQuestion.objects.get_queryset().filter(question__id__contains=data_id).count()
-    else:
+        return JsonResponse({
+            'status': 'ok',
+            'likes_count': likes_count
+        })
+    elif data_type == 'answer':
         answer_instance = Answer.objects.get(id=data_id)
         like_instance = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).filter(
             user=request.user.profile)
@@ -185,11 +189,10 @@ def like(request):
             like_instance.save()
 
         likes_count = LikeAnswer.objects.get_queryset().filter(answer__id__contains=data_id).count()
-
-    return JsonResponse({
-        'status': 'ok',
-        'likes_count': likes_count
-    })
+        return JsonResponse({
+            'status': 'ok',
+            'likes_count': likes_count
+        })
 
 
 @require_POST

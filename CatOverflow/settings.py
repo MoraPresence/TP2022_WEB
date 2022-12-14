@@ -75,10 +75,10 @@ WSGI_APPLICATION = 'CatOverflow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'CatOverflow',
+        'NAME': 'catoverflow',
         'USER': 'postgres',
-        'PASSWORD': '1371',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '13711371',
+        'HOST': '172.28.0.2',
         'PORT': '5432',
     }
 }
@@ -117,12 +117,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# STATIC_ROOT = BASE_DIR / "static/"
+
 MEDIA_URL = 'uploads/'
 
 MEDIA_ROOT = BASE_DIR / "uploads" #uploads
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
