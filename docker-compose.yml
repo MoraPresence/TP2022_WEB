@@ -73,6 +73,18 @@ services:
       my_network:
         ipv4_address: 172.28.0.9
 
+  nginx_django:
+    image: nginx
+    volumes:
+      - ./conf.d/django:/etc/nginx/conf.d
+      - ./static:/catoverflow/static
+      - ./uploads:/catoverflow/uploads
+    ports:
+      - "100:100"
+    networks:
+      my_network:
+        ipv4_address: 172.28.0.10
+
   web_django:
     depends_on:
       - web
