@@ -1,6 +1,11 @@
+import json
+import socket
+
 from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Count
 from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse
@@ -12,12 +17,104 @@ from CatOverflow.paginator import paginate
 
 # @require_GET
 from .forms import LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
-from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion, LikeAnswer
+from .models import Question, Answer, get_best_members, get_popular_tags, LikeQuestion, LikeAnswer, Profile, Tag
+
+
+def recvall(sock):
+    BUFF_SIZE = 4096  # 4 KiB
+    data = b''
+    while True:
+        part = sock.recv(BUFF_SIZE)
+        data += part
+        if len(part) < BUFF_SIZE:
+            # either 0 or end of data
+            break
+    return data
+
+
+def create_table_request():
+    s.sendall(JsonResponse({
+        '_key': "",
+        '_status': "NOTHING",
+        "_table_name": "Table01",
+        "_type": "CREATE_TABLE",
+        "_value": ""
+    }))
+
+    return recvall(s)
+
+
+HOST, PORT = "localhost", 6666
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+create_table_request()
+
+
+def insert_request(i):
+    s.sendall(JsonResponse({
+        '_key': i,
+        '_status': "NOTHING",
+        "_table_name": "Table01",
+        "_type": "INSERT",
+        "_value": serializers.serialize('json', [Question.objects.get(pk=i)])
+    }))
+
+    return recvall(s)
+
+
+def find_request(i):
+    s.sendall(JsonResponse({
+        '_key': i,
+        '_status': "NOTHING",
+        "_table_name": "Table01",
+        "_type": "FIND",
+        "_value": ""
+    }))
+
+    return recvall(s)
+
+def get_request(i):
+    s.sendall(JsonResponse({
+        '_key': i,
+        '_status': "NOTHING",
+        "_table_name": "Table01",
+        "_type": "GET",
+        "_value": ""
+    }))
+
+    return recvall(s)
 
 
 def index(request):
     page_list = Question.objects.new_questions()
-    context = paginate(page_list, request, 4)
+    my_mage_list = []
+    id_list = Question.objects.questions_id()
+
+    for i in id_list:
+        insert_request(i)
+
+    qs_json_list = []
+    res_json = []
+    for str1 in qs_json_list:
+        res_json.append(list(serializers.deserialize('json', str1)))
+
+    for i in id_list:
+        my_mage_list.append(model_to_dict(Question.objects.get(pk=i)))
+
+    result_mage_list = []
+
+    for list2 in res_json:
+        for obj in list2:
+            result_mage_list.append(Question(
+                pk=obj.object.pk,
+                title=obj.object.title,
+                text=obj.object.text,
+                author=obj.object.author,
+                creating_date=obj.object.creating_date
+            ))
+
+    context = paginate(result_mage_list, request, 4)
 
     return render(request, 'index.html',
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
