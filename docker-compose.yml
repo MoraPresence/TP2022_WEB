@@ -9,7 +9,7 @@ services:
       - ./sql/init.sh:/docker-entrypoint-initdb.d/init_CatOverflow.sh
     networks:
       my_network:
-        ipv4_address: 172.28.0.2
+        ipv4_address: 172.29.0.2
 
   adminer:
     image: adminer
@@ -18,7 +18,16 @@ services:
       - 8080:8080
     networks:
       my_network:
-        ipv4_address: 172.28.0.3
+        ipv4_address: 172.29.0.3
+
+  server_db:
+    image: ogrebatel/mond_db_on_str
+    restart: always
+    ports:
+      - 6666:6666
+    networks:
+      my_network:
+        ipv4_address: 172.29.0.101
 
   #  nginx:
   #    image: nginx
@@ -83,13 +92,14 @@ services:
       - "100:100"
     networks:
       my_network:
-        ipv4_address: 172.28.0.10
+        ipv4_address: 172.29.0.10
 
   web_django:
     depends_on:
       - db
       - adminer
       - nginx_django
+      - server_db
     container_name: server_web_django
     build:
       context: .
@@ -98,7 +108,7 @@ services:
       - 8010:8010
     networks:
       my_network:
-        ipv4_address: 172.28.0.7
+        ipv4_address: 172.29.0.7
 
 #  apache_benchmark:
 #    depends_on:
@@ -128,5 +138,5 @@ networks:
   my_network:
     ipam:
       config:
-        - subnet: 172.28.0.0/16
-          gateway: 172.28.0.1
+        - subnet: 172.29.0.0/16
+          gateway: 172.29.0.1
