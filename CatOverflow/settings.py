@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'CatOverflow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'catoverflow',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': '13711371',
         'HOST': '172.28.0.2',
