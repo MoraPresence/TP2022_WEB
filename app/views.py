@@ -33,13 +33,13 @@ def recvall(sock):
 
 
 def create_table_request():
-    s.sendall(JsonResponse({
+    s.sendall(bytes(json.dumps({
         '_key': "",
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "CREATE_TABLE",
         "_value": ""
-    }))
+    }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
 
@@ -52,36 +52,34 @@ create_table_request()
 
 
 def insert_request(i):
-    s.sendall(JsonResponse({
+    s.sendall(bytes(json.dumps({
         '_key': i,
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "INSERT",
-        "_value": serializers.serialize('json', [Question.objects.get(pk=i)])
-    }))
+        "_value": serializers.serialize('json', [Question.objects.get(pk=i)])}), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
 
-
 def find_request(i):
-    s.sendall(JsonResponse({
+    s.sendall(bytes(json.dumps({
         '_key': i,
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "FIND",
         "_value": ""
-    }))
+    }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
 
 def get_request(i):
-    s.sendall(JsonResponse({
+    s.sendall(bytes(json.dumps({
         '_key': i,
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "GET",
         "_value": ""
-    }))
+    }), encoding="utf-8")  + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
 
