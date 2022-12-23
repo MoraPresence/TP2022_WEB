@@ -41,7 +41,7 @@ services:
     container_name: server_web_django
     build:
       context: .
-      dockerfile: Dockerfiles/Dockerfile_django_nginx
+      dockerfile: Dockerfiles/Dockerfile_no_cache
     ports:
       - 8010:8010
     networks:
@@ -66,6 +66,8 @@ services:
       dockerfile: Dockerfiles/Dockerfile_apache_benchmark
     ports:
       - 8040:8040
+
+    command: tail -f /dev/null
     networks:
       my_network:
         ipv4_address: 172.28.0.8
