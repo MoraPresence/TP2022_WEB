@@ -43,7 +43,7 @@ def create_table_request():
     return recvall(s)
 
 
-HOST, PORT = "172.29.0.101", 6666
+HOST, PORT = "172.28.0.101", 6666
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
