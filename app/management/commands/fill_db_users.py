@@ -11,7 +11,6 @@ import requests
 
 fake = Faker()
 
-
 # TODO: BALCO
 
 class Command(BaseCommand):

@@ -27,7 +27,6 @@ def recvall(sock):
         part = sock.recv(BUFF_SIZE)
         data += part
         if len(part) < BUFF_SIZE:
-            # either 0 or end of data
             break
     return data
 
@@ -51,15 +50,17 @@ s.connect((HOST, PORT))
 create_table_request()
 
 
-def insert_request(i):
+def insert_request(key, value):
     s.sendall(bytes(json.dumps({
-        '_key': i,
+        '_key': key,
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "INSERT",
-        "_value": serializers.serialize('json', [Question.objects.get(pk=i)])}), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
+        "_value": serializers.serialize('json', [value])}), encoding="utf-8")
+              + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
+
 
 def find_request(i):
     s.sendall(bytes(json.dumps({
@@ -70,7 +71,9 @@ def find_request(i):
         "_value": ""
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
-    return recvall(s)
+    data = json.loads(recvall(s))
+    return data['_status'] == 'OK'
+
 
 def get_request(i):
     s.sendall(bytes(json.dumps({
@@ -79,40 +82,27 @@ def get_request(i):
         "_table_name": "Table01",
         "_type": "GET",
         "_value": ""
-    }), encoding="utf-8")  + bytes("\r\n\r\n", encoding="utf-8"))
+    }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
-    return recvall(s)
+    data = json.loads(recvall(s))
+    for obj in serializers.deserialize('json', data['_value']):
+        return obj.object
 
 
 def index(request):
-    page_list = Question.objects.new_questions()
-    my_mage_list = []
     id_list = Question.objects.questions_id()
 
-    for i in id_list:
-        insert_request(i)
-
-    qs_json_list = []
-    res_json = []
-    for str1 in qs_json_list:
-        res_json.append(list(serializers.deserialize('json', str1)))
+    question_list = []
 
     for i in id_list:
-        my_mage_list.append(model_to_dict(Question.objects.get(pk=i)))
+        if not find_request(i):
+            obj = Question.objects.get(pk=i)
+            question_list.append(obj)
+            insert_request(i, obj)
+        else:
+            question_list.append(get_request(i))
 
-    result_mage_list = []
-
-    for list2 in res_json:
-        for obj in list2:
-            result_mage_list.append(Question(
-                pk=obj.object.pk,
-                title=obj.object.title,
-                text=obj.object.text,
-                author=obj.object.author,
-                creating_date=obj.object.creating_date
-            ))
-
-    context = paginate(result_mage_list, request, 4)
+    context = paginate(question_list, request, 4)
 
     return render(request, 'index.html',
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})
