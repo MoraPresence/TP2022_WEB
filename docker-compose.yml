@@ -20,33 +20,6 @@ services:
       my_network:
         ipv4_address: 172.28.0.3
 
-  nginx:
-    image: nginx
-    volumes:
-      - ./conf.d/release:/etc/nginx/conf.d
-      - ./static:/catoverflow/static
-      - ./uploads:/catoverflow/uploads
-    ports:
-      - "80:80"
-    networks:
-      my_network:
-        ipv4_address: 172.28.0.4
-
-  web:
-    depends_on:
-      - db
-      - adminer
-      - nginx
-    container_name: server_web_release
-    build:
-      context: .
-      dockerfile: Dockerfiles/Dockerfile_full
-    ports:
-      - 8000:8000
-    networks:
-      my_network:
-        ipv4_address: 172.28.0.5
-
   nginx_no_cache:
     image: nginx
     volumes:
@@ -61,7 +34,8 @@ services:
 
   web_no_cache:
     depends_on:
-      - web
+      - db
+      - adminer
       - nginx_no_cache
     container_name: server_web_no_cache
     build:
@@ -73,54 +47,19 @@ services:
       my_network:
         ipv4_address: 172.28.0.9
 
-  nginx_django:
-    image: nginx
-    volumes:
-      - ./conf.d/django:/etc/nginx/conf.d
-      - ./static:/catoverflow/static
-      - ./uploads:/catoverflow/uploads
-    ports:
-      - "100:100"
-    networks:
-      my_network:
-        ipv4_address: 172.28.0.10
-
-  web_django:
-    depends_on:
-      - web
-    container_name: server_web_django
-    build:
-      context: .
-      dockerfile: Dockerfiles/Dockerfile_django_nginx
-    ports:
-      - 8010:8010
-    networks:
-      my_network:
-        ipv4_address: 172.28.0.7
-
   apache_benchmark:
     depends_on:
-      - web_django
+      - web_no_cache
     container_name: apache_benchmark
     build:
       context: .
       dockerfile: Dockerfiles/Dockerfile_apache_benchmark
+    command: tail -F /dev/null
     ports:
       - 8040:8040
     networks:
       my_network:
         ipv4_address: 172.28.0.8
-
-  test_wsgi:
-    container_name: test_wsgi
-    build:
-      context: .
-      dockerfile: Dockerfiles/Dockerfile_wsgi
-    ports:
-      - 8081:8081
-    networks:
-      my_network:
-        ipv4_address: 172.28.0.11
 
 networks:
   my_network:

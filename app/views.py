@@ -16,8 +16,14 @@ from .models import Question, Answer, get_best_members, get_popular_tags, LikeQu
 
 
 def index(request):
-    page_list = Question.objects.new_questions()
-    context = paginate(page_list, request, 4)
+    id_list = Question.objects.questions_id()
+
+    question_list = []
+
+    for i in id_list:
+        question_list.append(Question.objects.get(pk=i))
+
+    context = paginate(question_list, request, 4)
 
     return render(request, 'index.html',
                   {'questions': context, 'best_members': get_best_members(), 'popular_tags': get_popular_tags()})

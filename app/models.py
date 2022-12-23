@@ -42,6 +42,9 @@ class QuestionManager(models.Manager):
     def questions(self):
         return self.get_queryset().order_by('-creating_date').annotate(likes=Count('likequestion', distinct=True))
 
+    def questions_id(self):
+        return self.get_queryset().values_list('id', flat=True)
+
     def hot_questions(self):
         return self.get_queryset().annotate(answers_count=Count('answer', distinct=True),
                                             likes=Count('likequestion', distinct=True)).order_by('-likes')
@@ -49,6 +52,7 @@ class QuestionManager(models.Manager):
     def new_questions(self):
         return self.get_queryset().order_by('-creating_date').annotate(answers_count=Count('answer', distinct=True),
                                                                        likes=Count('likequestion', distinct=True))
+
 
     def tag_questions(self, tag):
         return self.get_queryset().filter(tag__name__contains=tag).annotate(

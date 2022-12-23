@@ -185,11 +185,9 @@ class QuestionForm(forms.ModelForm):
         if commit:
             question.save()
             for tag_instance in tags_list:
-
-                if Tag.objects.filter(pk=tag_instance).exists():
-                    tag = Tag.objects.get(pk=tag_instance)
-
-                if not Tag.objects.filter(pk=tag_instance).exists():
+                print(tag_instance)
+                tag = Tag.objects.get(pk=tag_instance)
+                if not tag:
                     tag = Tag.objects.create(name=tag_instance)
                 question.tag.add(tag.name)
             question.save()
