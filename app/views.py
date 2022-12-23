@@ -66,7 +66,6 @@ def find_request(i):
         "_value": ""
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
-
     data = json.loads(recvall(s))
     return data['_status'] == 'OK'
 
@@ -80,17 +79,12 @@ def get_request(i):
         "_value": ""
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
-
-
     data = json.loads(recvall(s))
     for obj in serializers.deserialize('json', data['_value']):
         return obj.object
-    # return serializers.deserialize('json', data)[0]
 
 
 def index(request):
-    # page_list = Question.objects.new_questions()
-    my_mage_list = []
     id_list = Question.objects.questions_id()
 
     question_list = []
@@ -100,7 +94,6 @@ def index(request):
             obj = Question.objects.get(pk=i)
             question_list.append(obj)
             insert_request(i, obj)
-
         else:
             question_list.append(get_request(i))
 
