@@ -17,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank=True, default='default.png', upload_to='avatar/%Y/%m/%d/')
+    image = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='avatar/%Y/%m/%d/')
 
     objects = ProfileManager()
 
@@ -28,8 +28,7 @@ class Profile(models.Model):
     def get_avatar(self):
         if self.image:
             return self.image.url
-        else:
-            return settings.STATIC_URL + 'img/cat01.jpg'
+
 
 
 class Tag(models.Model):
@@ -43,6 +42,9 @@ class QuestionManager(models.Manager):
     def questions(self):
         return self.get_queryset().order_by('-creating_date').annotate(likes=Count('likequestion', distinct=True))
 
+    def questions_id(self):
+        return self.get_queryset().values_list('id', flat=True)
+
     def hot_questions(self):
         return self.get_queryset().annotate(answers_count=Count('answer', distinct=True),
                                             likes=Count('likequestion', distinct=True)).order_by('-likes')
@@ -50,6 +52,7 @@ class QuestionManager(models.Manager):
     def new_questions(self):
         return self.get_queryset().order_by('-creating_date').annotate(answers_count=Count('answer', distinct=True),
                                                                        likes=Count('likequestion', distinct=True))
+
 
     def tag_questions(self, tag):
         return self.get_queryset().filter(tag__name__contains=tag).annotate(
@@ -119,6 +122,9 @@ class AnswerManager(models.Manager):
     def hot_answers(self):
         return self.get_queryset().annotate(likes=Count('likeanswer', distinct=True)).order_by('-likes')
 
+    def new_answers(self):
+        return self.get_queryset().annotate(likes=Count('likeanswer', distinct=True)).order_by('-creating_date').reverse()
+
 
 class Answer(models.Model):
     text = models.CharField(max_length=300)
@@ -129,6 +135,8 @@ class Answer(models.Model):
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE)
+
+    creating_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     objects = AnswerManager()
 
