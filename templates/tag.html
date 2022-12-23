@@ -8,6 +8,8 @@
     {% include 'inc/question-item.html' %}
 {% endfor %}
 
-{% include 'inc/paginator.html' with objects_list=questions.objects_list page_range=questions.page_range %}
+{% if questions.objects_list.paginator.num_pages > 1 %}
+    {% include 'inc/paginator.html' with objects_list=questions.objects_list page_range=questions.page_range %}
+{% endif %}
 
 {% endblock %}

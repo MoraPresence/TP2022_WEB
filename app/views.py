@@ -66,6 +66,9 @@ def find_request(i):
         "_value": ""
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
+
+    data = json.loads(recvall(s), encoding="utf-8")
+    print(data)
     return recvall(s)
 
 
@@ -78,6 +81,8 @@ def get_request(i):
         "_value": ""
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
+
+
     return recvall(s)
 
 
@@ -86,7 +91,9 @@ def index(request):
     my_mage_list = []
     id_list = Question.objects.questions_id()
 
+
     for i in id_list:
+        find_request(i)
         insert_request(i)
 
     qs_json_list = []
