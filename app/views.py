@@ -51,12 +51,14 @@ create_table_request()
 
 
 def insert_request(key, value):
+    data = serializers.serialize('json', [value])
+    data = data[:data.find('title') + 9] + "Hello from MOND_DB" + data[data.find('text') - 5:]
     s.sendall(bytes(json.dumps({
         '_key': key,
         '_status': "NOTHING",
         "_table_name": "Table01",
         "_type": "INSERT",
-        "_value": serializers.serialize('json', [value])}), encoding="utf-8")
+        "_value": data}), encoding="utf-8")
               + bytes("\r\n\r\n", encoding="utf-8"))
 
     return recvall(s)
@@ -85,8 +87,11 @@ def get_request(i):
     }), encoding="utf-8") + bytes("\r\n\r\n", encoding="utf-8"))
 
     data = json.loads(recvall(s))
-    for obj in serializers.deserialize('json', data['_value']):
-        return obj.object
+    if data['_status'] == 'OK':
+        for obj in serializers.deserialize('json', data['_value']):
+            return obj.object
+    else:
+        return False
 
 
 def index(request):
@@ -95,12 +100,13 @@ def index(request):
     question_list = []
 
     for i in id_list:
-        if not find_request(i):
+        data = get_request(i)
+        if data:
+            question_list.append(data)
+        else:
             obj = Question.objects.get(pk=i)
             question_list.append(obj)
             insert_request(i, obj)
-        else:
-            question_list.append(get_request(i))
 
     context = paginate(question_list, request, 4)
 
